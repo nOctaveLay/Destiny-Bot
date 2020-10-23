@@ -8,7 +8,7 @@ import os
 import random
 
 client = discord.Client()
-token = $$(secret_key)
+token = ${{ secrets.token }}
 TIMEVAL = 15
 json_route = "./text.json"
 
@@ -56,6 +56,8 @@ async def on_message(message):
             return m.author.bot != True
 
         while True:
-            try:
-                find_raid = random.choice(command_list)
-                await message.channel.send("당신이 가셔야 하는 레이드는 다음과 같습니다 : %s" %find_raid)
+            find_raid = random.choice(command_list)
+            string = "당신이 가셔야 하는 레이드는 다음과 같습니다 : " +find_raid
+            await message.channel.send(string)
+
+client.run(token)
