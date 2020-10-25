@@ -39,6 +39,8 @@ async def on_message(message):
 
         elif message.content.startswith(command_list[1]):
             option = message.content.split(" ")
+            if len(option) < 2:
+                await message.channel.send("봇을 사용할 수 없습니다, 명령어가 없는게 아닐지?")
 
             def check(m):
                 return m.author.bot != True
@@ -46,8 +48,12 @@ async def on_message(message):
                 string = random_raid()
                 string = print_raid(string)
                 await message.channel.send(string)
+
         elif message.content.startswith(command_list[2]):
             option = message.content.split(" ")
+            if len(option) < 2:
+                await message.channel.send("봇을 사용할 수 없습니다, 명령어가 없는게 아닐지?")
+
             if option[1] == "공격전":
                 if (len(option) == 3) and option[2] == "라이트":
                     string = count_strike(option = 'light')
