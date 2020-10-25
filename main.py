@@ -49,25 +49,27 @@ async def on_message(message):
                 string = print_raid(string)
                 await message.channel.send(string)
 
-        elif message.content.startswith(command_list[2]):
+        elif message.content.startswith(command_list[2]): #오늘
             option = message.content.split(" ")
             if len(option) < 2:
                 await message.channel.send("봇을 사용할 수 없습니다, 명령어가 없는게 아닐지?")
 
             if option[1] == "공격전":
                 if (len(option) == 3) and option[2] == "라이트":
-                    string = count_strike(option = 'light')
+                    strike_num = count_strike(option = 'light')
                 else:
-                    string = count_strike()
+                    strike_num = count_strike()
+                string = string_format('공격전',strike_num)
                 await message.channel.send(string)
 
             if option[1] == "레이드":
                 if len(option) == 3 and option[2] == "라이트":
-                    string = count_raid(option = 'easy')
+                    raid_num = count_raid(option = 'easy')
                 elif len(option) == 3 and option[2] == "하드":
-                    string = count_raid(option = 'hard')
+                    raid_num = count_raid(option = 'hard')
                 else :
-                    string = count_raid(option = 'normal')
+                    raid_num = count_raid(option = 'normal')
+                string = string_format('레이드',raid_num)
                 await message.channel.send(string)
         else:
             await message.channel.send("봇을 사용할 수 없습니다, 명령어가 없는게 아닐지?")
@@ -96,8 +98,8 @@ def random_raid():
 def print_raid(find_raid):
     raid_list = ['리바이어던','행성 포식자','별의 탑','슬픔의 왕관', '마지막 소원', '구원의 정원']
     raid_text_list = [
-        '수호자, 몇 초 지체하면 모두가 폭4하는 별의탑 고급은 어떠신가요?',
-        '버그가 난무하는 마지막소원도 재미있을것 같아요.',
+        '수호자, 몇 초 지체하면 모두가 폭4하는 별의 탑은 어떠신가요?',
+        '버그가 난무하는 마지막 소원도 재미있을것 같아요.',
         '선잇기놀이가 재미있는 구원의 정원을 추천해요.',
         '레이드 입문으로 괜찮은 행성포식자가 좋을 것 같아요.',
         '레이드를 여러번 하는 느낌을 즐길 수 있는 리바이어던이 재미있어요.',
@@ -114,9 +116,7 @@ def count_strike(option = 'normal'):
         strike_num = random.randint(3,50)
     else : #easy
         strike_num = random.randint(1,10)
-    strike_num = str(strike_num)
-    string = "오늘 공격전 몇 판 가야 하나요? {}판".format(strike_num)
-    return string
+    return strike_num
 
 def count_raid(option = 'normal'):
     if option == 'easy':
@@ -125,9 +125,22 @@ def count_raid(option = 'normal'):
         raid_num = random.randint(1,5)
     else: # option == 'hard':
         raid_num = random.randint(1,10)
-    raid_num = str(raid_num)
-    string = "오늘 레이드 몇 판 가야 하나요? {}판".format(raid_num)
+    return raid_num
+
+def string_format(option = '공격전',num = 0):
+    string = "오늘 {} 몇 판 가야 하나요? {}판".format(option,str(num))
     return string
 
-
+def multiple_raid(raid_num):
+    raid_dict = dict()
+    for _ in range(raid_num):
+        find_raid = random_raid()
+        if not find_raid in raid_dict:
+            raid_dict[find_raid] = 1
+        else:
+            raid_dict[find_raid] += 1
+    for key, value in raid_dict.items():
+        string = print_raid(key)
+        string = string + " {}번 정도면 충분할 거 같아요.".format(str(raid_dict[find_raid]))
+    return string
 client.run(token)
