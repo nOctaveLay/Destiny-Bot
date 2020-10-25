@@ -44,6 +44,7 @@ async def on_message(message):
                 return m.author.bot != True
             if option[1] == "레이드":
                 string = random_raid()
+                string = print_raid(string)
                 await message.channel.send(string)
         elif message.content.startswith(command_list[2]):
             option = message.content.split(" ")
@@ -81,10 +82,26 @@ def random_raid():
     raid_option = ['일반','고급']
     find_raid = random.choice(raid_list)
     find_raid_option = ''
-    if find_raid == find_raid[0] or find_raid == find_raid[1] or find_raid == find_raid[2]:
+    if find_raid == raid_list[0] or find_raid == raid_list[1] or find_raid == raid_list[2]:
         find_raid_option = random.choice(raid_option)
-    string = "당신이 가셔야 하는 레이드는 다음과 같습니다 : " + find_raid + " " + find_raid_option
-    return string
+    find_raid = find_raid+" "+find_raid_option
+    return find_raid
+
+def print_raid(find_raid):
+    raid_list = ['리바이어던','행성 포식자','별의 탑','슬픔의 왕관', '마지막 소원', '구원의 정원']
+    raid_text_list = [
+        '수호자, 몇 초 지체하면 모두가 폭4하는 별의탑 고급은 어떠신가요?',
+        '버그가 난무하는 마지막소원도 재미있을것 같아요.',
+        '선잇기놀이가 재미있는 구원의 정원을 추천해요.',
+        '레이드 입문으로 괜찮은 행성포식자가 좋을 것 같아요.',
+        '레이드를 여러번 하는 느낌을 즐길 수 있는 리바이어던이 재미있어요.',
+        '수호자, 가볍게 20분만에 할 수 있는 과거의 고통을 해보시는게 어떨까요?',
+        '디버프 폭탄돌리기 메커니즘이 재미있는 슬픔의 왕관이 재미있어요'
+    ]
+    for index,raid in enumerate(raid_list):
+        if find_raid.startswith(raid):
+            string = raid_text_list[index]
+            return string
 
 def count_strike(option = 'normal'):
     if option == 'normal':
@@ -105,5 +122,6 @@ def count_raid(option = 'normal'):
     raid_num = str(raid_num)
     string = "오늘 레이드 몇 판 가야 하나요? {}판".format(raid_num)
     return string
+
 
 client.run(token)
