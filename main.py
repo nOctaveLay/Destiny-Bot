@@ -32,11 +32,12 @@ async def on_message(message):
     if message.author.bot:
         return
 
-    if message.content.startswith('#사용법'):
-        use_string = usage()
-        await message.channel.send(use_string)
     if message.content.startswith('#'):
-        if message.content.startswith(command_list[1]):
+        if message.content.startswith(command_list[0]):
+            use_string = usage()
+            await message.channel.send(use_string)
+
+        elif message.content.startswith(command_list[1]):
             option = message.content.split(" ")
 
             def check(m):
@@ -51,6 +52,15 @@ async def on_message(message):
                     string = count_strike(option = 'light')
                 else:
                     string = count_strike()
+                await message.channel.send(string)
+
+            if option[1] == "레이드":
+                if len(option) == 3 and option[2] == "라이트":
+                    string = count_raid(option = 'easy')
+                elif len(option) == 3 and option[2] == "하드":
+                    string = count_raid(option = 'hard')
+                else :
+                    string = count_raid(option = 'normal')
                 await message.channel.send(string)
         else:
             await message.channel.send("봇을 사용할 수 없습니다, 명령어가 없는게 아닐지?")
@@ -79,9 +89,21 @@ def random_raid():
 def count_strike(option = 'normal'):
     if option == 'normal':
         strike_num = random.randint(3,50)
-    else :
+    else : #easy
         strike_num = random.randint(1,10)
     strike_num = str(strike_num)
     string = "오늘 공격전 몇 판 가야 하나요? {}판".format(strike_num)
     return string
+
+def count_raid(option = 'normal'):
+    if option == 'easy':
+        raid_num = random.randint(1,2)
+    elif option == 'normal':
+        raid_num = random.randint(1,5)
+    else: # option == 'hard':
+        raid_num = random.randint(1,10)
+    raid_num = str(raid_num)
+    string = "오늘 레이드 몇 판 가야 하나요? {}판".format(raid_num)
+    return string
+
 client.run(token)
