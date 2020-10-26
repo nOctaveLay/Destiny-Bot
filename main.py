@@ -40,6 +40,9 @@ async def on_message(message):
         option = message.content.split(" ")
         option.remove(call_string)
         
+        if '자발라' in option:
+            await message.channel.send("여기서 파란 빡빡이를 왜 찾으시는 거죠?")
+
         if len(option) == 0:
             await message.channel.send("왜 그러시죠? 수호자님?")
 
