@@ -24,14 +24,14 @@ async def on_ready():
     # 봇 권한이 있는 곳에만 쓰도록 허락하자.
     for guild in client.guilds:
         for channel in guild.text_channels:
-            if channel.name == "개발팀":
+            if channel.name == "개발-테스트":
                 await channel.send("으음... 여기가 어디죠?")
 
 @client.event
 async def on_message(message):
     call_string = '사기라'
     command_list = ['사용법','랜덤','오늘']
-    activity_set = ['공격전','황혼전','황혼전 시련','시련의 장','오시리스의 시련','갬빗','레이드']
+    activity_list = ['공격전','황혼전','황혼전 시련','시련의 장','오시리스의 시련','갬빗','레이드']
 
     if message.author.bot:
         return
@@ -39,7 +39,11 @@ async def on_message(message):
     if message.content.startswith(call_string):
         option = message.content.split(" ")
         option.remove(call_string)
-        if option[0] == command_list[0]:
+        
+        if len(option) == 0:
+            await message.channel.send("왜 그러시죠? 수호자님?")
+
+        elif option[0] == command_list[0]:
             use_string = usage()
             await message.channel.send(use_string)
 
@@ -53,15 +57,24 @@ async def on_message(message):
                 string = random_activity()
                 string = print_activity(string)
                 await message.channel.send(string)
+
             if option[1] == "레이드":
                 string = random_raid()
                 string = print_raid(string)
                 await message.channel.send(string)
 
         elif option[0] == command_list[2]: #오늘
-            if len(option) < 2:
+            if len(option) < 1:
                 await message.channel.send("봇을 사용할 수 없습니다, 명령어가 없는게 아닐지?")
-            if option[1] == "공격전":
+
+            elif len(option) == 1:
+                await message.channel.send("오늘 돌아야 하는 것에 대해서 말씀드릴게요.")
+                today_count = random.randint(1,len(activity_list))
+                today_all_dict = multiple_activity(random_activity,today_count)
+                for printer_ in print_random_dict(today_all_dict):
+                    await message.channel.send(printer_)
+
+            elif option[1] == "공격전":
                 if len(option) == 3:
                     strike_num = additive_option(count_strike,option[2])
                 else:
@@ -69,7 +82,7 @@ async def on_message(message):
                 string = string_format('공격전',strike_num)
                 await message.channel.send(string)
 
-            if option[1] == "레이드":
+            elif option[1] == "레이드":
                 if len(option) == 3:
                     raid_num = additive_option(count_activity,option[2]) 
                 else :
@@ -77,18 +90,20 @@ async def on_message(message):
                 string = string_format('레이드',raid_num)
                 await message.channel.send(string)
                 if len(option) > 3 or (len(option) == 3 and (option[2] != '라이트' and option[2] != '하드')):
-                    raid_dict = multiple_raid(raid_num)
+                    raid_dict = multiple_activity(random_raid,raid_num)
                     for key, value in raid_dict.items():
                         string = print_raid(key)
-                        string = string + " {}번 정도면 충분할 거 같아요.".format(str(value))
+                        string = string + f" {str(value)}번 정도면 충분할 거 같아요."
                         await message.channel.send(string)
-            if option[1] == "시장" or option[1].startswith("시련"):
+            elif option[1] == "시장" or option[1].startswith("시련"):
                 if len(option) >2 :
                     crucible_num = additive_option(count_activity,option[2])
                 else :
                     crucible_num = count_activity()
                 string = string_format('시련의 장',crucible_num)
                 await message.channel.send(string)
+            else:
+                await message.channel.send("어... 수호자님... 뭐라고요...?")
         else:
             await message.channel.send("봇을 사용할 수 없습니다, 명령어가 없는게 아닐지?")
 
@@ -149,19 +164,19 @@ def print_activity(find_):
     ]
     return find_
 
-    # for index,raid in enumerate(raid_list):
-    #     if find_raid.startswith(raid):
-    #         string = raid_text_list_single[index]
-    #         return string
+def print_random_dict(random_dict):
+    for key, value in random_dict.items():
+        string = f"{key}를 {str(value)}번 정도 돌면 충분할 거 같아요."
+        yield string
 
-def count_strike(option = 'normal'):
+def count_strike(option='normal'):
     if option == 'easy':
         strike_num = random.randint(1,3)
     else : #normal, hard
         strike_num = random.randint(3,30)
     return strike_num
 
-def count_activity(option = 'normal'):
+def count_activity(option='normal'):
     if option == 'easy':
         raid_num = random.randint(1,2)
     elif option == 'hard':
@@ -171,19 +186,20 @@ def count_activity(option = 'normal'):
     return raid_num
 
 
-def string_format(option = '공격전',num = 0):
-    string = "오늘 {} 몇 판 가야 하나요? {}판".format(option,str(num))
+def string_format(option='공격전',num=0):
+
+    string = f"오늘 {option} 몇 판 가야 하나요? {str(num)}판"
     return string
 
 #must be iterator
-def multiple_raid(raid_num):
-    raid_dict = dict()
-    for _ in range(raid_num):
-        find_raid = random_raid()
-        if not find_raid in raid_dict:
-            raid_dict[find_raid] = 1
+def multiple_activity(func,num):
+    activity_dict = dict()
+    for _ in range(num):
+        find_activity = func()
+        if find_activity not in activity_dict:
+            activity_dict[find_activity] = 1
         else:
-            raid_dict[find_raid] += 1
-    return raid_dict
+            activity_dict[find_activity] += 1
+    return activity_dict
 
 client.run(token)
