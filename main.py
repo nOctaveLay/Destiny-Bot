@@ -74,6 +74,11 @@ async def on_message(message):
                     raid_num = count_raid(option = 'normal')
                 string = string_format('레이드',raid_num)
                 await message.channel.send(string)
+                raid_dict = multiple_raid(raid_num)
+                for key, value in raid_dict.items():
+                    string = print_raid(key)
+                    string = string + " {}번 정도면 충분할 거 같아요.".format(str(value))
+                    await message.channel.send(string)
         else:
             await message.channel.send("봇을 사용할 수 없습니다, 명령어가 없는게 아닐지?")
 
@@ -100,7 +105,7 @@ def random_raid():
 
 def print_raid(find_raid):
     raid_list = ['리바이어던','행성 포식자','별의 탑','슬픔의 왕관','과거의 고통','마지막 소원', '구원의 정원']
-    raid_text_list = [
+    raid_text_list_single = [
         '레이드를 여러번 하는 느낌을 즐길 수 있는 리바이어던이 재미있어요.',
         '레이드 입문으로 괜찮은 행성포식자가 좋을 것 같아요.',
         '수호자, 몇 초 지체하면 모두가 폭4하는 별의 탑은 어떠신가요?',
@@ -111,9 +116,10 @@ def print_raid(find_raid):
     ]
     for index,raid in enumerate(raid_list):
         if find_raid.startswith(raid):
-            string = raid_text_list[index]
+            string = raid_text_list_single[index]
             return string
 
+            
 def count_strike(option = 'normal'):
     if option == 'normal':
         strike_num = random.randint(3,50)
@@ -134,17 +140,15 @@ def string_format(option = '공격전',num = 0):
     string = "오늘 {} 몇 판 가야 하나요? {}판".format(option,str(num))
     return string
 
+#must be iterator
 def multiple_raid(raid_num):
     raid_dict = dict()
     for _ in range(raid_num):
         find_raid = random_raid()
-        print(raid_dict,find_raid)
         if not find_raid in raid_dict:
             raid_dict[find_raid] = 1
         else:
             raid_dict[find_raid] += 1
-    for key, value in raid_dict.items():
-        string = print_raid(key)
-        string = string + " {}번 정도면 충분할 거 같아요.".format(str(raid_dict[find_raid]))
-    return string
+    return raid_dict
+
 client.run(token)
