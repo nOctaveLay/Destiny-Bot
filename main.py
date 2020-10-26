@@ -9,7 +9,9 @@ import os
 import random
 
 client = discord.Client()
-token = #hidden
+config = ConfigParser()
+config.read('config.ini')
+token = config['default']['token']
 TIMEVAL = 15
 json_route = "./text.json"
 
