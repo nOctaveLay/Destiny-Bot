@@ -12,6 +12,7 @@ client = discord.Client()
 config = ConfigParser()
 config.read('config.ini')
 token = config['default']['token']
+
 TIMEVAL = 15
 json_route = "./text.json"
 
@@ -19,12 +20,12 @@ json_route = "./text.json"
 async def on_ready():
     hello = "안녕하세요."
     print('We have logged in as {0.user}'.format(client))
-    # 봇 권한이 있는 곳에만 쓰도록 허락하자.
-    for guild in client.guilds:
-        for channel in guild.text_channels:
-            if channel.name == "개발팀":
-                await channel.send(hello)
-                await channel.send("\'#사용법\'을 쳐서 이 아이를 통해 할 수 있는 것을 확인해보세요")
+    # # 봇 권한이 있는 곳에만 쓰도록 허락하자.
+    # for guild in client.guilds:
+    #     for channel in guild.text_channels:
+    #         if channel.name == "개발팀":
+    #             await channel.send(hello)
+    #             await channel.send("\'#사용법\'을 쳐서 이 아이를 통해 할 수 있는 것을 확인해보세요")
 
 
 @client.event
@@ -98,15 +99,15 @@ def random_raid():
     return find_raid
 
 def print_raid(find_raid):
-    raid_list = ['리바이어던','행성 포식자','별의 탑','슬픔의 왕관', '마지막 소원', '구원의 정원']
+    raid_list = ['리바이어던','행성 포식자','별의 탑','슬픔의 왕관','과거의 고통','마지막 소원', '구원의 정원']
     raid_text_list = [
-        '수호자, 몇 초 지체하면 모두가 폭4하는 별의 탑은 어떠신가요?',
-        '버그가 난무하는 마지막 소원도 재미있을것 같아요.',
-        '선잇기놀이가 재미있는 구원의 정원을 추천해요.',
-        '레이드 입문으로 괜찮은 행성포식자가 좋을 것 같아요.',
         '레이드를 여러번 하는 느낌을 즐길 수 있는 리바이어던이 재미있어요.',
+        '레이드 입문으로 괜찮은 행성포식자가 좋을 것 같아요.',
+        '수호자, 몇 초 지체하면 모두가 폭4하는 별의 탑은 어떠신가요?',
+        '디버프 폭탄돌리기 메커니즘이 재미있는 슬픔의 왕관이 재미있어요',
         '수호자, 가볍게 20분만에 할 수 있는 과거의 고통을 해보시는게 어떨까요?',
-        '디버프 폭탄돌리기 메커니즘이 재미있는 슬픔의 왕관이 재미있어요'
+        '버그가 난무하는 마지막 소원도 재미있을것 같아요.',
+        '선잇기놀이가 재미있는 구원의 정원을 추천해요.'
     ]
     for index,raid in enumerate(raid_list):
         if find_raid.startswith(raid):
@@ -137,6 +138,7 @@ def multiple_raid(raid_num):
     raid_dict = dict()
     for _ in range(raid_num):
         find_raid = random_raid()
+        print(raid_dict,find_raid)
         if not find_raid in raid_dict:
             raid_dict[find_raid] = 1
         else:
