@@ -43,7 +43,7 @@ async def on_message(message):
         if '자발라' in option:
             await message.channel.send("여기서 파란 빡빡이를 왜 찾으시는 거죠?")
 
-        if len(option) == 0:
+        elif len(option) == 0:
             await message.channel.send("왜 그러시죠? 수호자님?")
 
         elif option[0] == command_list[0]:
