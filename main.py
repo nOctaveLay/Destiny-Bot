@@ -123,7 +123,7 @@ async def on_message(message):
             await message.channel.send("봇을 사용할 수 없습니다, 명령어가 없는게 아닐지?")
 
 
-def additive_option(func_name,option):
+def additive_option(func_name,option = 'normal'):
     if option == "라이트":
         result_num = func_name(option = 'easy')
     elif option == "하드":
@@ -152,7 +152,10 @@ def random_raid():
     return find_raid
 
 def random_activity():
-    activity_list = ['공격전','황혼전','황혼전 시련','시련의 장','오시리스의 시련','갬빗','레이드']
+    today_time = datetime.today().weekday()
+    activity_list = ['공격전','황혼전','황혼전 시련','시련의 장','갬빗','레이드']
+    if today_time >4 or today_time < 2:
+        activity_list.append("오시리스의 시련")
     find_activity = random.choice(activity_list)
     return find_activity
 
@@ -173,8 +176,11 @@ def print_raid(find_raid):
             return string
 
 def print_activity(find_):
-    activity_list = ['공격전','황혼전','황혼전 시련','시련의 장','오시리스의 시련','갬빗','레이드']
-    raid_text_list_single = [
+    today_time = datetime.today().weekday()
+    activity_list = ['공격전','황혼전','황혼전 시련','시련의 장','갬빗','레이드']
+    if today_time >4 or today_time < 2:
+        activity_list.add("오시리스의 시련")
+    activity_text_list_single = [
         #fill out this, plz
     ]
     return find_
@@ -216,5 +222,7 @@ def multiple_activity(func,num):
         else:
             activity_dict[find_activity] += 1
     return activity_dict
+
+
 
 client.run(token)
