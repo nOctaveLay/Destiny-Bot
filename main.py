@@ -30,7 +30,7 @@ async def on_ready():
 @client.event
 async def on_message(message):
     call_string = '사기라'
-    command_list = ['사용법','랜덤','오늘']
+    command_list = ['사용법','랜덤','오늘','레이드','활동']
     activity_list = ['공격전','황혼전','황혼전 시련','시련의 장','오시리스의 시련','갬빗','레이드']
 
     if message.author.bot:
@@ -51,19 +51,30 @@ async def on_message(message):
             await message.channel.send(use_string)
 
         elif option[0] == command_list[1]:
-            if len(option) < 2:                
+            #랜덤
+            if len(option) < 2 or option[1] == command_list[4]:                
                 string = random_activity()
                 string = print_activity(string)
                 await message.channel.send(string)
-
-            elif option[1] == "레이드":
+            #랜덤 레이드
+            elif option[1] == command_list[3]:
                 string = random_raid()
                 string = print_raid(string)
                 await message.channel.send(string)
-
             else:
                 string = '수호자님, 그런 명령어는 안 되요.'
                 await message.channel.send(string)
+
+        #활동
+        elif option[0] == command_list[4]:                
+            string = random_activity()
+            string = print_activity(string)
+            await message.channel.send(string)
+        #레이드
+        elif option[0] == command_list[3]:
+            string = random_raid()
+            string = print_raid(string)
+            await message.channel.send(string)
 
         elif option[0] == command_list[2]: #오늘
             if len(option) < 1:
@@ -75,6 +86,8 @@ async def on_message(message):
                 today_all_dict = multiple_activity(random_activity,today_count)
                 for printer_ in print_random_dict(today_all_dict):
                     await message.channel.send(printer_)
+
+            elif option[1] == '업데이트': pass
             
             elif option[1] == '하드':
                 today_count = additive_option(count_activity, option = 'hard')
@@ -134,7 +147,7 @@ def additive_option(func_name,option = 'normal'):
 
 def usage():
     string = '사용법에 대해서 설명하겠습니다.\n'
-    with open('README.md','r',encoding = 'utf-8') as f:
+    with open('use.md','r',encoding = 'utf-8') as f:
         while True:
             temp_string = f.readline()
             if not temp_string :break
