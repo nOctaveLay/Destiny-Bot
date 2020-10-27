@@ -55,9 +55,6 @@ async def on_message(message):
                 string = random_activity()
                 string = print_activity(string)
                 await message.channel.send(string)
-            
-            def check(m):
-                return m.author.bot != True
 
             elif option[1] == "레이드":
                 string = random_raid()
@@ -74,12 +71,22 @@ async def on_message(message):
 
             elif len(option) == 1:
                 await message.channel.send("오늘 돌아야 하는 것에 대해서 말씀드릴게요.")
-                today_count = random.randint(1,len(activity_list))
+                today_count = additive_option(count_activity)
                 today_all_dict = multiple_activity(random_activity,today_count)
                 for printer_ in print_random_dict(today_all_dict):
                     await message.channel.send(printer_)
             
+            elif option[1] == '하드':
+                today_count = additive_option(count_activity, option = 'hard')
+                today_all_dict = multiple_activity(random_activity,today_count)
+                for printer_ in print_random_dict(today_all_dict):
+                    await message.channel.send(printer_)
 
+            elif option[1] == '라이트':
+                today_count = additive_option(count_activity, option = 'easy')
+                today_all_dict = multiple_activity(random_activity,today_count)
+                for printer_ in print_random_dict(today_all_dict):
+                    await message.channel.send(printer_)
 
             elif option[1] == "공격전":
                 if len(option) == 3:
