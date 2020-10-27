@@ -51,19 +51,21 @@ async def on_message(message):
             await message.channel.send(use_string)
 
         elif option[0] == command_list[1]:
-            if len(option) < 2:
-                await message.channel.send("봇을 사용할 수 없습니다, 명령어가 없는게 아닐지?")
-
-            def check(m):
-                return m.author.bot != True
-            if option[1] == "활동":
+            if len(option) < 2:                
                 string = random_activity()
                 string = print_activity(string)
                 await message.channel.send(string)
+            
+            def check(m):
+                return m.author.bot != True
 
-            if option[1] == "레이드":
+            elif option[1] == "레이드":
                 string = random_raid()
                 string = print_raid(string)
+                await message.channel.send(string)
+
+            else:
+                string = '수호자님, 그런 명령어는 안 되요.'
                 await message.channel.send(string)
 
         elif option[0] == command_list[2]: #오늘
@@ -76,6 +78,8 @@ async def on_message(message):
                 today_all_dict = multiple_activity(random_activity,today_count)
                 for printer_ in print_random_dict(today_all_dict):
                     await message.channel.send(printer_)
+            
+
 
             elif option[1] == "공격전":
                 if len(option) == 3:
@@ -98,6 +102,7 @@ async def on_message(message):
                         string = print_raid(key)
                         string = string + f" {str(value)}번 정도면 충분할 거 같아요."
                         await message.channel.send(string)
+
             elif option[1] == "시장" or option[1].startswith("시련"):
                 if len(option) >2 :
                     crucible_num = additive_option(count_activity,option[2])
