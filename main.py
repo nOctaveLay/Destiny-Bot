@@ -79,7 +79,7 @@ async def on_message(message):
             
             elif option[1] == '하드':
                 today_count = additive_option(count_activity, option = 'hard')
-                today_all_dict = multiple_activity(random_activity,today_count)
+                today_all_dict = multiple_activity(random_activity,today_count,option = 'hard')
                 for printer_ in print_random_dict(today_all_dict):
                     await message.channel.send(printer_)
 
@@ -176,12 +176,26 @@ def random_raid():
     find_raid = find_raid+" "+find_raid_option
     return find_raid
 
-def random_activity():
-    today_time = datetime.today().weekday()
+def random_activity(option = 'normal'):
+    today_time = datetime.today().weekday()    
     activity_list = ['공격전','황혼전','황혼전 시련','시련의 장','갬빗','레이드']
-    if today_time >4 or today_time < 2:
-        activity_list.append("오시리스의 시련")
-    find_activity = random.choice(activity_list)
+    if option == 'hard':
+        hard_activity_list = ['황혼전 시련','갬빗','레이드','이단의 구덩이','조각난 왕관','예언']
+        find_activity = random.choice(hard_activity_list)
+        if find_activity == '황혼전 시련':
+            hard_option = random.choice(['마스터','그랜드마스터'])
+        elif find_activity == '이단의 구덩이' or find_activity == '예언' or find_activity == '조각난 왕관':
+            hard_option = random.choice(['솔로','솔로 무결점','무결점'])
+        elif find_activity == '레이드':
+            hard_option = random.choice(['무결점','업적'])
+        else:
+            hard_option = random.choice(['일반', '프라임'])
+        find_activity += f' {hard_option}'
+        if today_time >4 or today_time < 2:
+            activity_list.append("오시리스의 시련")
+    else:
+        activity_list = ['공격전','황혼전','황혼전 시련','시련의 장','갬빗','레이드']
+        find_activity = random.choice(activity_list)
     return find_activity
 
 def print_raid(find_raid):
@@ -238,10 +252,10 @@ def string_format(option='공격전',num=0):
     return string
 
 #must be iterator
-def multiple_activity(func,num):
+def multiple_activity(func,num,option = 'normal'):
     activity_dict = dict()
     for _ in range(num):
-        find_activity = func()
+        find_activity = func(option)
         if find_activity not in activity_dict:
             activity_dict[find_activity] = 1
         else:
