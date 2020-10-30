@@ -3,7 +3,7 @@ import json
 import os.path
 from datetime import datetime,date,timedelta
 
-
+__all__ = ['update','issue_read']
 
 def update():
     auth = {'User-Agent':'nOctaveLay'}
@@ -31,14 +31,25 @@ def update():
             result_data.append(string_format)
     return result_data
 
+def issue_read():
+    file_name = 'issue_name.txt'
+    if os.path.isfile(file_name):
+        with open(file_name,'r',encoding = 'utf-8') as f:
+            issue_data = f.read()
+    else:
+        raise FileNotFoundError
+    return issue_data
+
+def issue_save(save_data):
+    file_name = 'issue_name.txt'
+    json_list = json.dumps(save_data)
+    with open('issue_name.txt','w',encoding = 'utf-8') as f:
+        f.write(json_list)
+
 today = date.today()
 today_datetime = datetime.today()
-file_name = 'issue_name.txt'
-time_delta = timedelta(days = 8)
-search_range = today - time_delta
-if os.path.isfile(file_name):
-    with open(file_name,'r',encoding = 'utf-8') as f:
-        issue_data = f.read()
+
+issue_data = issue_read()
 issue_convert_json = json.loads(issue_data)
 if '시간' in issue_convert_json[0]:
     text_time = issue_convert_json[0]['시간']
@@ -48,7 +59,4 @@ else: text_time = today
 issue_date = date.fromisoformat(issue_convert_json[1]['날짜'])
 if issue_date < today or text_time[0] < today_datetime.hour-1:
     issue_data = update()
-
-json_list = json.dumps(issue_data)
-with open('issue_name.txt','w',encoding = 'utf-8') as f:
-    f.write(json_list)
+issue_save(issue_data)
