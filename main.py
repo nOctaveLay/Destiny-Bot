@@ -5,6 +5,7 @@ import re
 import copy
 from datetime import date, datetime
 from configparser import ConfigParser
+from issue import issue_read
 import os
 import random
 
@@ -30,7 +31,7 @@ async def on_ready():
 @client.event
 async def on_message(message):
     call_string = '사기라'
-    command_list = ['사용법','랜덤','오늘','레이드','활동']
+    command_list = ['사용법','랜덤','오늘','레이드','활동','업데이트']
     activity_list = ['공격전','황혼전','황혼전 시련','시련의 장','오시리스의 시련','갬빗','레이드']
 
     if message.author.bot:
@@ -38,17 +39,17 @@ async def on_message(message):
 
     if message.content.startswith(call_string):
         option = message.content.split(" ")
-        option.remove(call_string)
-        
+        option = option[1:]
         if '자발라' in option:
             await message.channel.send("여기서 파란 빡빡이를 왜 찾으시는 거죠?")
 
-        elif len(option) == 0:
+        elif len(option) == 0: #사기라만 쳤을 경우
             await message.channel.send("왜 그러시죠? 수호자님?")
 
         elif option[0] == command_list[0]:
             use_string = usage()
             await message.channel.send(use_string)
+
 
         elif option[0] == command_list[1]:
             #랜덤
@@ -65,17 +66,6 @@ async def on_message(message):
                 string = '수호자님, 그런 명령어는 안 되요.'
                 await message.channel.send(string)
 
-        #활동
-        elif option[0] == command_list[4]:                
-            string = random_activity()
-            string = print_activity(string)
-            await message.channel.send(string)
-        #레이드
-        elif option[0] == command_list[3]:
-            string = random_raid()
-            string = print_raid(string)
-            await message.channel.send(string)
-
         elif option[0] == command_list[2]: #오늘
             if len(option) < 1:
                 await message.channel.send("봇을 사용할 수 없습니다, 명령어가 없는게 아닐지?")
@@ -86,8 +76,6 @@ async def on_message(message):
                 today_all_dict = multiple_activity(random_activity,today_count)
                 for printer_ in print_random_dict(today_all_dict):
                     await message.channel.send(printer_)
-
-            elif option[1] == '업데이트': pass
             
             elif option[1] == '하드':
                 today_count = additive_option(count_activity, option = 'hard')
@@ -132,6 +120,30 @@ async def on_message(message):
                 await message.channel.send(string)
             else:
                 await message.channel.send("어... 수호자님... 뭐라고요...?")
+        #활동
+        elif option[0] == command_list[4]:                
+            string = random_activity()
+            string = print_activity(string)
+            await message.channel.send(string)
+        #레이드
+        elif option[0] == command_list[3]:
+            string = random_raid()
+            string = print_raid(string)
+            await message.channel.send(string)
+        
+        elif option[0] == command_list[5]:
+            issue_list = issue_read()
+            await message.channel.send("수호자님, 1주일 동안 해결된 문제에 대해서 말씀드릴게요. 음...")
+            issue_list = issue_list[1:]
+            date = '1990-11-11'    
+            issue_list = sorted(issue_list,key = lambda issue: issue['날짜'])
+            for index,issue in enumerate(issue_list):
+                title = issue['제목']
+                issue_date = issue['날짜']
+                if date != issue['날짜']:
+                    await message.channel.send(f"{issue_date}, 이 날에는 이런 문제들이 해결되었어요.")
+                    date = issue_date
+                await message.channel.send(f"{index}, {title}")
         else:
             await message.channel.send("봇을 사용할 수 없습니다, 명령어가 없는게 아닐지?")
 
