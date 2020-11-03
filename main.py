@@ -27,6 +27,8 @@ async def on_ready():
         for channel in guild.text_channels:
             if channel.name == "개발-테스트":
                 await channel.send("으음... 여기가 어디죠?")
+            if channel.name == '오늘-데이원':
+                await channel.send()
 
 @client.event
 async def on_message(message):
@@ -59,6 +61,12 @@ async def on_message(message):
                 await message.channel.send(string)
             #랜덤 레이드
             elif option[1] == command_list[3]:
+                if len(option) == 3 and option[2].isdigit():
+                    await message.channel.send(f"현재 요청하신 레이드는 {option[2]}개죠? 수호자.")
+                    for _ in range(int(option[2])-1):
+                        string = random_raid()
+                        string = print_raid(string)
+                        await message.channel.send(string)
                 string = random_raid()
                 string = print_raid(string)
                 await message.channel.send(string)
