@@ -14,6 +14,7 @@ user = discord.User
 config = ConfigParser()
 config.read('config.ini')
 token = config['default']['token']
+hidden_user = config['default']['user']
 
 TIMEVAL = 15
 json_route = "./text.json"
@@ -167,9 +168,9 @@ def additive_option(func_name,option = 'normal'):
         result_num = func_name(option = 'normal')
     return result_num
 
-def usage():
+def usage(file_name = './use_method/new_use.md'):
     string = '사용법에 대해서 설명하겠습니다.\n'
-    with open('use.md','r',encoding = 'utf-8') as f:
+    with open(file_name,'r',encoding = 'utf-8') as f:
         while True:
             temp_string = f.readline()
             if not temp_string :break
