@@ -63,13 +63,15 @@ async def on_message(message):
             elif option[1] == command_list[3]:
                 if len(option) == 3 and option[2].isdigit():
                     await message.channel.send(f"현재 요청하신 레이드는 {option[2]}개죠? 수호자.")
-                    for _ in range(int(option[2])-1):
-                        string = random_raid()
-                        string = print_raid(string)
+                    raid_dict = multiple_activity(random_raid,int(option[2]))
+                    for key, value in raid_dict.items():
+                        string = print_raid(key)
+                        string = string + f" {str(value)}번 정도면 충분할 거 같아요."
                         await message.channel.send(string)
-                string = random_raid()
-                string = print_raid(string)
-                await message.channel.send(string)
+                else:
+                    string = random_raid()
+                    string = print_raid(string)
+                    await message.channel.send(string)
             else:
                 string = '수호자님, 그런 명령어는 안 되요.'
                 await message.channel.send(string)
@@ -174,7 +176,7 @@ def usage():
             string += temp_string
     return string
 
-def random_raid():
+def random_raid(option = 'normal'):
     raid_list = ['리바이어던','행성 포식자','별의 탑','슬픔의 왕관', '마지막 소원', '구원의 정원']
     raid_option = ['일반','고급']
     find_raid = random.choice(raid_list)
