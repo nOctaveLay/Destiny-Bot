@@ -17,8 +17,6 @@ config = ConfigParser()
 config.read('./Destiny-Bot-main/config.ini')
 token = config['default']['token']
 
-TIMEVAL = 15
-json_route = "./text.json"
 
 @client.event
 async def on_ready():
