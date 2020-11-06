@@ -9,6 +9,8 @@ from issue import issue_read
 import os
 import random
 
+
+raid_list = ['리바이어던','행성 포식자','별의 탑','슬픔의 왕관', '마지막 소원', '구원의 정원']
 client = discord.Client()
 user = discord.User
 config = ConfigParser()
@@ -63,11 +65,11 @@ async def on_message(message):
             #랜덤 레이드
             elif option[1] == command_list[3]:
                 if len(option) == 3 and option[2].isdigit():
-                    await message.channel.send(f"현재 요청하신 레이드는 {option[2]}개죠? 수호자.")
+                    await message.channel.send(f"현재 요청하신 레이드는 **{option[2]}개**죠? 수호자.")
                     raid_dict = multiple_activity(random_raid,int(option[2]))
                     for key, value in raid_dict.items():
                         string = print_raid(key)
-                        string = string + f" {str(value)}번 정도면 충분할 거 같아요."
+                        string = string + f" **{str(value)}**번 정도면 충분할 거 같아요."
                         await message.channel.send(string)
                 else:
                     string = random_raid()
@@ -223,6 +225,8 @@ def print_raid(find_raid):
     for index,raid in enumerate(raid_list):
         if find_raid.startswith(raid):
             string = raid_text_list_single[index]
+            if "고급" in find_raid:
+                string += " 아, 물론 **고급**으로요. "
             return string
 
 def print_activity(find_):
