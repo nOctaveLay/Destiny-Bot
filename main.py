@@ -55,6 +55,8 @@ async def on_message(message):
             use_string = usage()
             await message.channel.send(use_string)
 
+        elif option[0] == '안녕':
+            await message.channel.send("수호자님, 안녕하세요?")
 
         elif option[0] == command_list[1]:
             #랜덤
