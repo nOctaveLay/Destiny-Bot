@@ -14,9 +14,8 @@ raid_list = ['리바이어던','행성 포식자','별의 탑','슬픔의 왕관
 client = discord.Client()
 user = discord.User
 config = ConfigParser()
-config.read('config.ini')
+config.read('./Destiny-Bot-main/config.ini')
 token = config['default']['token']
-hidden_user = config['default']['user']
 
 TIMEVAL = 15
 json_route = "./text.json"
@@ -93,11 +92,15 @@ async def on_message(message):
                     await message.channel.send(printer_)
             
             elif option[1] == '하드':
-                today_count = additive_option(count_activity, option = 'hard')
-                today_all_dict = multiple_activity(random_activity,today_count,option = 'hard')
+                mode = random.randint(0,1)
+                if mode == 0:
+                    option_set = ['easy','hard']
+                else:
+                    option_set = ['hard','easy']
+                today_count = additive_option(count_activity, option = option_set[0])
+                today_all_dict = multiple_activity(random_activity,today_count,option = option_set[1])
                 for printer_ in print_random_dict(today_all_dict):
                     await message.channel.send(printer_)
-
             elif option[1] == '라이트':
                 today_count = additive_option(count_activity, option = 'easy')
                 today_all_dict = multiple_activity(random_activity,today_count)
@@ -164,9 +167,9 @@ async def on_message(message):
 
 
 def additive_option(func_name,option = 'normal'):
-    if option == "라이트":
+    if option == "easy" or option == "라이트":
         result_num = func_name(option = 'easy')
-    elif option == "하드":
+    elif option == "hard" or option == "하드":
         result_num = func_name(option = 'hard')
     else :
         result_num = func_name(option = 'normal')
@@ -257,9 +260,9 @@ def count_activity(option='normal'):
     if option == 'easy':
         raid_num = random.randint(1,2)
     elif option == 'hard':
-        raid_num = random.randint(1,10)
+        raid_num = random.randint(5,10)
     else: # option == 'normal':
-        raid_num = random.randint(1,5)
+        raid_num = random.randint(3,6)
     return raid_num
 
 
