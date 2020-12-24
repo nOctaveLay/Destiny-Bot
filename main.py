@@ -32,8 +32,7 @@ async def on_message(message):
 
     #config 파일로 관리하는 방법 없을까 리스트도 너무 지저분한데...
     call_string = '사기라'
-    command_list = ['사용법','랜덤','오늘','레이드','활동','업데이트']
-    
+
     activity_list,activity_text_dict = init_activity()
     raid_list,raid_text_dict = init_raid()
 
