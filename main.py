@@ -14,9 +14,9 @@ from utility import *
 
 client = discord.Client()
 user = discord.User
-# config = ConfigParser()
-# config.read('./Destiny-Bot-main/config.ini')
-token = 'NzY5MDQyMDgyMjIzNDg5MDY5.X5JQQA.eE2RDYIXgTBpIQjcTx5YfbBWNRI'
+config = ConfigParser()
+config.read('./config.ini')
+token = config['Default']['token']
 
 
 @client.event
