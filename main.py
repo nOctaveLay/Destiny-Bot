@@ -16,8 +16,7 @@ client = discord.Client()
 user = discord.User
 # config = ConfigParser()
 # config.read('./Destiny-Bot-main/config.ini')
-token = 'NzY5MDQyMDgyMjIzNDg5MDY5.X5JQQA.eE2RDYIXgTBpIQjcTx5YfbBWNRI'
-
+token = 'hidden'
 
 @client.event
 async def on_ready():
