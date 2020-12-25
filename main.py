@@ -59,14 +59,10 @@ async def on_message(message):
             await message.channel.send(f"{message.author} 수호자님, 안녕하세요?")
 
         elif option[0] == '랜덤':
-            num = 1
-            if '번' in option[-1]:
-                num_list = option[-1].split("번")
-                if num_list[0].isdigit():
-                    if int(num_list[0]) > 1:
-                        num = int(num_list[0])
-                    else:
-                        await message.channel.send(f"반복 횟수를 잘못 설정한 거 같아요, 수호자님. 어... 우선 1번만 돌릴게요")
+            num = init_num()
+            if num == -1:
+                message.channel.send(f"반복 횟수를 잘못 설정한 거 같아요, 수호자님. 어... 우선 1번만 돌릴게요")
+    
             #랜덤
             if len(option) == 1:
                 for _ in range(num):

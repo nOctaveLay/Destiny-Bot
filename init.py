@@ -1,6 +1,6 @@
 from datetime import date, datetime
 
-__all__ = ['init_raid','init_activity']
+__all__ = ['init_raid','init_activity','init_num']
 
 def init_activity():
     today_time = datetime.today().weekday()
@@ -27,6 +27,16 @@ def init_raid():
     }
     return (raid_list,raid_text_dict)
 
+def init_num():
+    num = 1
+    if '번' in option[-1]:
+        num_list = option[-1].split("번")
+        if num_list[0].isdigit():
+            if int(num_list[0]) > 1:
+                num = int(num_list[0])
+            else: 
+                num = -1
+    return num
 # def random_activity(option = 'normal'):
 #     today_time = datetime.today().weekday()    
 #     activity_list = ['공격전','황혼전','황혼전 시련','시련의 장','갬빗','레이드']
