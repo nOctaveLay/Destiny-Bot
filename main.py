@@ -44,7 +44,7 @@ async def on_message(message):
     if message.content.startswith(call_string):
         option = message.content.split(" ")
         option = option[1:]
-
+        
         if '자발라' in option:
             await message.channel.send("여기서 그 파란 빡빡이를 왜 찾으시는 거죠?")
 
@@ -59,17 +59,27 @@ async def on_message(message):
             await message.channel.send(f"{message.author} 수호자님, 안녕하세요?")
 
         elif option[0] == '랜덤':
+            num = 1
+            if '번' in option[-1]:
+                num_list = option[-1].split("번")
+                if num_list[0].isdigit():
+                    if int(num_list[0]) > 1:
+                        num = int(num_list[0])
+                    else:
+                        await message.channel.send(f"반복 횟수를 잘못 설정한 거 같아요, 수호자님. 어... 우선 1번만 돌릴게요")
             #랜덤
             if len(option) == 1:
-                choosen_activity = choosen(activity_list)
-                activity_print = print_dict(choosen_activity,activity_text_dict)
-                await message.channel.send(activity_print)
+                for _ in range(num):
+                    choosen_activity = choosen(activity_list)
+                    activity_print = print_dict(choosen_activity,activity_text_dict)
+                    await message.channel.send(activity_print)
 
             #랜덤 레이드
             elif option[1] == '레이드':
-                choosen_raid = choosen(raid_list)
-                raid_print = print_dict(choosen_raid,raid_text_dict)
-                await message.channel.send(raid_print)
+                for _ in range(num):
+                    choosen_raid = choosen(raid_list)
+                    raid_print = print_dict(choosen_raid,raid_text_dict)
+                    await message.channel.send(raid_print)
             else:
                 await message.channel.send(error_message)
 

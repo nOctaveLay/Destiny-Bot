@@ -18,3 +18,7 @@ def choosen(choose_list,option = 'normal'):
 def print_dict(choosen_string,choosen_dict):
     string = choosen_dict[choosen_string]
     return string
+
+def repeat_func(function,num):
+    for _ in range(num):
+        function()
