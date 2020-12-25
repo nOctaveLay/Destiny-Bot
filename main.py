@@ -51,7 +51,7 @@ async def on_message(message):
         elif len(option) == 0: #사기라만 쳤을 경우
             await message.channel.send("왜 그러시죠? 수호자님?")
 
-        elif option[0] == '사용법' or option[0] == 'help':
+        elif option[0] == '사용법' or option[0] == 'help' or option[0] == '도움':
             use_string = usage()
             await message.channel.send(use_string)
 
