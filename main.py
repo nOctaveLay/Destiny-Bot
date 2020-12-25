@@ -44,7 +44,11 @@ async def on_message(message):
     if message.content.startswith(call_string):
         option = message.content.split(" ")
         option = option[1:]
-        
+        num = init_num(option[-1])
+        if num == -1 or num > 11:
+            await message.channel.send(f"반복 횟수를 잘못 설정한 거 같아요, 수호자님. 어... 우선 1번만 돌릴게요")
+            num = 1
+            
         if '자발라' in option:
             await message.channel.send("여기서 그 파란 빡빡이를 왜 찾으시는 거죠?")
 
@@ -59,11 +63,6 @@ async def on_message(message):
             await message.channel.send(f"{message.author} 수호자님, 안녕하세요?")
 
         elif option[0] == '랜덤':
-            num = init_num(option[-1])
-            if num == -1 or num > 11:
-                await message.channel.send(f"반복 횟수를 잘못 설정한 거 같아요, 수호자님. 어... 우선 1번만 돌릴게요")
-                num = 1
-                
             #랜덤
             if len(option) == 1:
                 for _ in range(num):
@@ -89,7 +88,7 @@ async def on_message(message):
         #         today_count = additive_option(count_activity)
         #         today_all_dict = multiple_activity(random_activity,today_count)
         #         for printer_ in print_random_dict(today_all_dict):
-        #             await message.channel.send(printer_)
+        #             await message.channel.send(printer_) 
             
         #     elif option[1] == '하드':
         #         mode = random.randint(0,1)
