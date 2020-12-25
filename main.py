@@ -60,11 +60,13 @@ async def on_message(message):
 
         elif option[0] == '랜덤':
             num = 1
-            print(option[-1],re.match(option[-1],"[0-9]*번"))
-            if re.match(option[-1],"[0-9]*번"):
-                repeat_num_list = option.split("번")
-                num = int(repeat_num_list[0])
-
+            if '번' in option[-1]:
+                num_list = option[-1].split("번")
+                if num_list[0].isdigit():
+                    if int(num_list[0]) > 1:
+                        num = int(num_list[0])
+                    else:
+                        await message.channel.send(f"반복 횟수를 잘못 설정한 거 같아요, 수호자님. 어... 우선 1번만 돌릴게요")
             #랜덤
             if len(option) == 1:
                 for _ in range(num):
