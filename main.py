@@ -44,7 +44,7 @@ async def on_message(message):
     if message.content.startswith(call_string):
         option = message.content.split(" ")
         option = option[1:]
-
+        
         if '자발라' in option:
             await message.channel.send("여기서 그 파란 빡빡이를 왜 찾으시는 거죠?")
 
@@ -59,17 +59,25 @@ async def on_message(message):
             await message.channel.send(f"{message.author} 수호자님, 안녕하세요?")
 
         elif option[0] == '랜덤':
+            num = 1
+            print(option[-1],re.match(option[-1],"[0-9]*번"))
+            if re.match(option[-1],"[0-9]*번"):
+                repeat_num_list = option.split("번")
+                num = int(repeat_num_list[0])
+
             #랜덤
             if len(option) == 1:
-                choosen_activity = choosen(activity_list)
-                activity_print = print_dict(choosen_activity,activity_text_dict)
-                await message.channel.send(activity_print)
+                for _ in range(num):
+                    choosen_activity = choosen(activity_list)
+                    activity_print = print_dict(choosen_activity,activity_text_dict)
+                    await message.channel.send(activity_print)
 
             #랜덤 레이드
             elif option[1] == '레이드':
-                choosen_raid = choosen(raid_list)
-                raid_print = print_dict(choosen_raid,raid_text_dict)
-                await message.channel.send(raid_print)
+                for _ in range(num):
+                    choosen_raid = choosen(raid_list)
+                    raid_print = print_dict(choosen_raid,raid_text_dict)
+                    await message.channel.send(raid_print)
             else:
                 await message.channel.send(error_message)
 
