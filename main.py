@@ -65,7 +65,7 @@ async def on_message(message):
 
         elif option[0] == '랜덤':
             #랜덤
-            if len(option) == 1 or (len(option) == 2 and num > 0):
+            if len(option) == 1 or (len(option) == 2 and num > 1 and '번' in option[1]):
                 for _ in range(num):
                     choosen_activity = choosen(activity_list)
                     activity_print = print_dict(choosen_activity,activity_text_dict)
