@@ -66,17 +66,24 @@ async def on_message(message):
         elif option[0] == '랜덤':
             #랜덤
             if len(option) == 1 or (len(option) == 2 and num > 1 and '번' in option[1]):
+                activity_num_dict = {key:0 for key in activity_list}
                 for _ in range(num):
                     choosen_activity = choosen(activity_list)
-                    activity_print = print_dict(choosen_activity,activity_text_dict)
-                    await message.channel.send(activity_print)
+                    activity_num_dict[choosen_activity] += 1
+                text_dict = change_activity_text_dict(activity_num_dict)
+                for x in text_dict:
+                    await message.channel.send(x)
+
 
             #랜덤 레이드
             elif option[1] == '레이드':
+                raid_num_dict = {key:0 for key in raid_list}
                 for _ in range(num):
                     choosen_raid = choosen(raid_list)
-                    raid_print = print_dict(choosen_raid,raid_text_dict)
-                    await message.channel.send(raid_print)
+                    raid_num_dict[choosen_raid] += 1
+                text_dict = change_raid_text_dict(raid_num_dict)
+                for x in text_dict:
+                    await message.channel.send(x)
             else:
                 await message.channel.send(error_message)
 
