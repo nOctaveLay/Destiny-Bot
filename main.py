@@ -87,7 +87,7 @@ async def on_message(message):
             else:
                 await message.channel.send(error_message)
 
-        # elif option[0] == command_list[2]: #오늘
+        # elif option[0] == '오늘': #오늘
         #     if len(option) < 1:
         #         await message.channel.send("봇을 사용할 수 없습니다, 명령어가 없는게 아닐지?")
 
@@ -181,38 +181,6 @@ def additive_option(func_name,option = 'normal'):
     else :
         result_num = func_name(option = 'normal')
     return result_num
-
-# def random_activity(option = 'normal'):
-#     today_time = datetime.today().weekday()    
-#     activity_list = ['공격전','황혼전','황혼전 시련','시련의 장','갬빗','레이드']
-#     if option == 'hard':
-#         hard_activity_list = ['황혼전 시련','갬빗','레이드','이단의 구덩이','조각난 왕관','예언']
-#         find_activity = random.choice(hard_activity_list)
-#         if find_activity == '황혼전 시련':
-#             hard_option = random.choice(['마스터','그랜드마스터'])
-#         elif find_activity == '이단의 구덩이' or find_activity == '예언' or find_activity == '조각난 왕관':
-#             hard_option = random.choice(['솔로','솔로 무결점','무결점'])
-#         elif find_activity == '레이드':
-#             hard_option = random.choice(['무결점','업적'])
-#         else:
-#             hard_option = random.choice(['일반', '프라임'])
-#         find_activity += f' {hard_option}'
-#         if today_time >4 or today_time < 2:
-#             activity_list.append("오시리스의 시련")
-#     else:
-#         activity_list = ['공격전','황혼전','황혼전 시련','시련의 장','갬빗','레이드']
-#         find_activity = random.choice(activity_list)
-#     return find_activity
-
-# def print_activity(find_):
-#     today_time = datetime.today().weekday()
-#     activity_list = ['공격전','황혼전','황혼전 시련','시련의 장','갬빗','레이드']
-#     if today_time >4 or today_time < 2:
-#         activity_list.append("오시리스의 시련")
-#     activity_text_list_single = [
-#         fill out this, plz
-#     ]
-#     return find_
 
 def count_strike(option='normal'):
     if option == 'easy':
