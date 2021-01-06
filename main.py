@@ -94,7 +94,7 @@ async def on_message(message):
                 if len(option) == 1:
                     lw_string = print_lw_named()
                 elif option[1] == '1넴' or option[1] == '1네임드':
-                    lw_string = print_lw_first_named()
+                    lw_string = print_lw_no_named(1)
                 elif option[1] == '2넴' or option[1] == '2네임드':
                     lw_string = print_lw_sec_named()
                 elif option[1] == '3넴' or option[1] == '3네임드':
