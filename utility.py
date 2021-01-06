@@ -1,6 +1,6 @@
 import random
 
-__all__ = ['usage','choosen','print_dict']
+__all__ = ['usage','choosen','print_dict','print_no_named']
 
 def usage(file_name = './use.md'):
     string = '사용법에 대해서 설명하겠습니다.\n'
@@ -22,3 +22,7 @@ def print_dict(choosen_string,choosen_dict):
 def repeat_func(function,num):
     for _ in range(num):
         function()
+
+def print_no_named():
+    result_string = f"수호자님, 음... 이 보스는 역할 분배를 하지 않아도 되는 보스인 거 같아요."
+    return result_string

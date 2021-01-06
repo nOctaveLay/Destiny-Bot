@@ -1,6 +1,6 @@
 import random
 
-__all__ = ['print_lw_named','print_lw_no_named','print_lw_sec_named','print_lw_third_named','print_lw_forth_named']
+__all__ = ['print_lw_named','print_lw_sec_named','print_lw_third_named','print_lw_forth_named']
 
 def print_lw_sec_named():
     result_string = "**2네임드**\n"
@@ -23,10 +23,6 @@ def print_lw_forth_named():
     people_list = [x+1 for x in range(6)]
     random.shuffle(people_list)
     result_string += f"**계단** 발판({people_list[0]}), 러너({people_list[1]})\n**돌** 발판({people_list[2]}) 러너({people_list[3]})\n**나무** 발판({people_list[4]}), 러너({people_list[5]})"
-    return result_string
-
-def print_lw_no_named():
-    result_string = f"수호자님, 음... 이 보스는 역할 분배를 하지 않아도 되는 보스인 거 같아요."
     return result_string
 
 def print_lw_named():
