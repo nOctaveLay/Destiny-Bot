@@ -10,6 +10,7 @@ import re
 import discord
 from issue import issue_read
 from init import *
+from raid.dsc import *
 from raid.gos import *
 from raid.lw import *
 from utility import *
@@ -77,7 +78,6 @@ async def on_message(message):
                 for x in text_dict:
                     await message.channel.send(x)
 
-
             #랜덤 레이드
             elif option[1] == '레이드':
                 raid_num_dict = {key:0 for key in raid_list}
@@ -89,12 +89,13 @@ async def on_message(message):
                     await message.channel.send(x)
             else:
                 await message.channel.send(error_message)
+
         elif option[0] in raid_summary_list:
             if option[0] == '마소':
                 if len(option) == 1:
                     lw_string = print_lw_named()
                 elif option[1] == '1넴' or option[1] == '1네임드':
-                    lw_string = print_lw_no_named()
+                    lw_string = print_no_named()
                 elif option[1] == '2넴' or option[1] == '2네임드':
                     lw_string = print_lw_sec_named()
                 elif option[1] == '3넴' or option[1] == '3네임드':
@@ -102,9 +103,9 @@ async def on_message(message):
                 elif option[1] == '4넴' or option[1] == '4네임드':
                     lw_string = print_lw_forth_named()
                 elif option[1] == '5넴' or option[1] == '5네임드':
-                    lw_string = print_lw_no_named()
+                    lw_string = print_no_named()
                 elif option[1] == '6넴' or option[1] == '6네임드':
-                    lw_string = print_lw_no_named()
+                    lw_string = print_no_named()
                 else:
                     lw_string = "수호자님, 마지막 소원은 6보스로 되어 있는 거 아시죠? 아니면 명령어를 잘못 입력한 거 같은데... 확인해주세요."
                 await message.channel.send(lw_string)
@@ -122,6 +123,22 @@ async def on_message(message):
                 else:
                     gos_string = "수호자님, 구원의 정원은 보스가 총 4명 있는 거 아시죠? 아니면 명령어를 잘못 입력한 거 같은데... 확인해주세요."
                 await message.channel.send(gos_string)
+            
+            else:
+                if len(option) == 1:
+                    dsc_string = print_dsc_named()
+                elif option[1] == '1넴' or option[1] == '1네임드':
+                    dsc_string = print_dsc_first_named()
+                elif option[1] == '2넴' or option[1] == '2네임드':
+                    dsc_string = print_dsc_sec_named()
+                elif option[1] == '3넴' or option[1] == '3네임드':
+                    dsc_string = print_no_named()
+                elif option[1] == '4넴' or option[1] == '4네임드':
+                    dsc_string = print_dsc_forth_named()
+                else:
+                    dsc_string = "수호자님, 딥스톤 무덤은 4명의 보스가 대기하고 있는 거 아시죠? 아니면 명령어를 잘못 입력한 거 같은데... 확인해주세요."
+                await message.channel.send(dsc_string)
+
                 
         # elif option[0] == '오늘': #오늘
         #     if len(option) < 1:
