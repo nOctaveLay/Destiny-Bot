@@ -1,3 +1,5 @@
+import random
+
 activity_list = ['공격전','황혼전 시련','시련의 장','갬빗','레이드','예언 던전']
 activity_text_dict ={
     activity_list[0]:'수호자, 파란 빡빡이가 선봉대가 해야 하는 **공격전**을 하라고 부르고 있어요.',
@@ -17,4 +19,6 @@ activity_num_dict = {
 }
 
 a = {key:0 for key in activity_list}
-print(a)
+
+
+print(random.choices(activity_list,k=3))

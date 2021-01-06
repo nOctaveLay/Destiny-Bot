@@ -11,6 +11,7 @@ import discord
 from issue import issue_read
 from init import *
 from utility import *
+from raid import *
 
 client = discord.Client()
 user = discord.User
@@ -35,6 +36,7 @@ async def on_message(message):
 
     activity_list,activity_text_dict = init_activity()
     raid_list,raid_text_dict = init_raid()
+    raid_summary_list = ['마소','구정','딥스톤']
 
     error_message = '수호자님, 그런 명령어는 아직 들어와있지 않아요.'
 
@@ -86,7 +88,24 @@ async def on_message(message):
                     await message.channel.send(x)
             else:
                 await message.channel.send(error_message)
-
+        elif option[0] in raid_summary_list:
+            if len(option) == 1:
+                named = print_gos_named()
+                await message.channel.send(named)
+            elif option[1] == '1넴':
+                first_named = print_gos_first_named()
+                await message.channel.send(first_named)
+            elif option[1] == '2넴':
+                sec_named = print_gos_sec_named()
+                await message.channel.send(sec_named)
+            elif option[1] == '3넴':
+                third_named = print_gos_third_named()
+                await message.channel.send(third_named)
+            elif option[1] == '4넴':
+                forth_named = print_gos_forth_named()
+                await message.channel.send(forth_named)
+            else:
+                await message.channel.send("수호자님, 구원의 정원은 보스가 총 4명 있는 거 아시죠? 아니면 명령어를 잘못 입력한 거 같은데... 확인해주세요.")
         # elif option[0] == '오늘': #오늘
         #     if len(option) < 1:
         #         await message.channel.send("봇을 사용할 수 없습니다, 명령어가 없는게 아닐지?")
