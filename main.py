@@ -92,32 +92,28 @@ async def on_message(message):
         elif option[0] in raid_summary_list:
             if option[0] == '마소':
                 if len(option) == 1:
-                    named = print_lw_named()
-                    await message.channel.send(named)
-                elif option[1] == '1넴':
-                    first_named = print_lw_first_named()
-                    await message.channel.send(first_named)
-                elif option[1] == '2넴':
-                    sec_named = print_lw_sec_named()
-                    await message.channel.send(sec_named)
-                elif option[1] == '3넴':
-                    third_named = print_lw_third_named()
-                    await message.channel.send(third_named)
-                elif option[1] == '4넴':
-                    forth_named = print_lw_forth_named()
-                    await message.channel.send(forth_named)
+                    lw_string = print_lw_named()
+                elif option[1] == '1넴' or option[1] == '1네임드':
+                    lw_string = print_lw_first_named()
+                elif option[1] == '2넴' or option[1] == '2네임드':
+                    lw_string = print_lw_sec_named()
+                elif option[1] == '3넴' or option[1] == '3네임드':
+                    lw_string = print_lw_third_named()
+                elif option[1] == '4넴' or option[1] == '4네임드':
+                    lw_string = print_lw_forth_named()
                 else:
-                    await message.channel.send("수호자님, 구원의 정원은 보스가 총 4명 있는 거 아시죠? 아니면 명령어를 잘못 입력한 거 같은데... 확인해주세요.")
+                    lw_string = "수호자님, 마지막 소원은 6보스로 되어 있는 거 아시죠? 아니면 명령어를 잘못 입력한 거 같은데... 확인해주세요."
+                await message.channel.send(lw_string)
             elif option[0] == '구정':
                 if len(option) == 1:
                     gos_string = print_gos_named()
-                elif option[1] == '1넴':
+                elif option[1] == '1넴' or option[1] == '1네임드':
                     gos_string = print_gos_first_named()
-                elif option[1] == '2넴':
+                elif option[1] == '2넴' or option[1] == '2네임드':
                     gos_string = print_gos_sec_named()
-                elif option[1] == '3넴':
+                elif option[1] == '3넴' or option[1] == '3네임드':
                     gos_string = print_gos_third_named()
-                elif option[1] == '4넴':
+                elif option[1] == '4넴' or option[1] == '4네임드':
                     gos_string = print_gos_forth_named()
                 else:
                     gos_string = "수호자님, 구원의 정원은 보스가 총 4명 있는 거 아시죠? 아니면 명령어를 잘못 입력한 거 같은데... 확인해주세요."
