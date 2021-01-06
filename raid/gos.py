@@ -31,7 +31,10 @@ def print_gos_forth_named():
     result_string = "**4네임드**\n"
     people_list = [x+1 for x in range(6)]
     random.shuffle(people_list)
-    result_string += f"**티끌1**({people_list[0]}, {people_list[1]})\n**티끌2**({people_list[2]}, {people_list[3]})\n**발판**({people_list[4]}, {people_list[5]})"
+    mote1_list = sorted(people_list[0:2])
+    mote2_list = sorted(people_list[2:4])
+    floor_list = sorted(people_list[4:6])
+    result_string += f"**티끌1**({mote1_list[0]}, {mote1_list[1]})\n**티끌2**({mote2_list[0]}, {mote2_list[1]})\n**발판**({floor_list[0]}, {floor_list[1]})"
     return result_string
 
 def print_gos_named():
