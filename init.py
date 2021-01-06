@@ -82,28 +82,3 @@ def init_num(option):
             else: 
                 num = -1
     return num
-
-
-
-    
-# def random_activity(option = 'normal'):
-#     today_time = datetime.today().weekday()    
-#     activity_list = ['공격전','황혼전','황혼전 시련','시련의 장','갬빗','레이드']
-#     if option == 'hard':
-#         hard_activity_list = ['황혼전 시련','갬빗','레이드','이단의 구덩이','조각난 왕관','예언']
-#         find_activity = random.choice(hard_activity_list)
-#         if find_activity == '황혼전 시련':
-#             hard_option = random.choice(['마스터','그랜드마스터'])
-#         elif find_activity == '이단의 구덩이' or find_activity == '예언' or find_activity == '조각난 왕관':
-#             hard_option = random.choice(['솔로','솔로 무결점','무결점'])
-#         elif find_activity == '레이드':
-#             hard_option = random.choice(['무결점','업적'])
-#         else:
-#             hard_option = random.choice(['일반', '프라임'])
-#         find_activity += f' {hard_option}'
-#         if today_time >4 or today_time < 2:
-#             activity_list.append("오시리스의 시련")
-#     else:
-#         activity_list = ['공격전','황혼전','황혼전 시련','시련의 장','갬빗','레이드']
-#         find_activity = random.choice(activity_list)
-#     return find_activity
