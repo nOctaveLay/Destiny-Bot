@@ -94,13 +94,17 @@ async def on_message(message):
                 if len(option) == 1:
                     lw_string = print_lw_named()
                 elif option[1] == '1넴' or option[1] == '1네임드':
-                    lw_string = print_lw_no_named(1)
+                    lw_string = print_lw_no_named()
                 elif option[1] == '2넴' or option[1] == '2네임드':
                     lw_string = print_lw_sec_named()
                 elif option[1] == '3넴' or option[1] == '3네임드':
                     lw_string = print_lw_third_named()
                 elif option[1] == '4넴' or option[1] == '4네임드':
                     lw_string = print_lw_forth_named()
+                elif option[1] == '5넴' or option[1] == '5네임드':
+                    lw_string = print_lw_no_named()
+                elif option[1] == '6넴' or option[1] == '6네임드':
+                    lw_string = print_lw_no_named()
                 else:
                     lw_string = "수호자님, 마지막 소원은 6보스로 되어 있는 거 아시죠? 아니면 명령어를 잘못 입력한 거 같은데... 확인해주세요."
                 await message.channel.send(lw_string)
