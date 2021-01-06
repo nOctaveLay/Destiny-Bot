@@ -58,6 +58,6 @@ def issue_read():
 def issue_save(save_data):
     file_name = 'issue_name.txt'
     json_list = json.dumps(save_data)
-    with open('issue_name.txt','w',encoding = 'utf-8') as f:
+    with open(file_name,'w',encoding = 'utf-8') as f:
         f.write(json_list)
 
