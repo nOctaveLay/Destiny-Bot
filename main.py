@@ -8,12 +8,12 @@ import random
 import re
 
 import discord
-from issue import issue_read
-from init import *
+from utility.issue import issue_read
+from utility.init import *
 from raid.dsc import *
 from raid.gos import *
 from raid.lw import *
-from utility import *
+from utility.utility import *
 
 client = discord.Client()
 user = discord.User
