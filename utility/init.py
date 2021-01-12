@@ -37,11 +37,11 @@ def change_raid_text_dict(raid_num_dict):
         num_text = f'**{num}번** ' if num > 1 else ''  
         if num > 0:
             if x == raid_list[0]:
-                new_text_dict.append(f'수호자, 파란 빡빡이가 선봉대가 해야 하는 **공격전**을 {num_text}하라고 부르고 있어요.')
+                new_text_dict.append(f'마라 소프 여왕이 부르고 있어요, **마지막 소원**을 빌었던 곳에서 리븐을 {num_text}죽여달래요. 재밌을 거 같지 않나요?')
             elif x == raid_list[1]:
-                new_text_dict.append(f'왜 선봉대에 있는 수호자들이 죽어났는지, 알 거 같네요. **황혼전 시련**을 {num_text}하라고 자발라가 부르고 있어요.')
+                new_text_dict.append(f'선잇기놀이가 재미있는 **구원의 정원**이면 {num_text}도는 것도 나쁘지 않을까요?')
             elif x == raid_list[2]:
-                new_text_dict.append(f'샤크스가 요새 바쁜 일이 있냐고 묻네요, **시련의 장**에서 {num_text}당신의 실력을 보여달래요.')
+                new_text_dict.append(f'모든 엑소들의 꿈인 **딥스톤 무덤**을 {num_text}도는 것은 어떠신가요? 수호자.')
             else:
                 print(x)
                 pass
