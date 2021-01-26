@@ -67,6 +67,10 @@ async def on_message(message):
         elif option[0] == '안녕':
             await message.channel.send(f"{message.author} 수호자님, 안녕하세요?")
 
+        elif option[0] == '소라고동':
+            choose_one = random.choice(['네','아니오'])
+            await message.channel.send(choose_one)
+
         elif option[0] == '랜덤':
             #랜덤
             if len(option) == 1 or (len(option) == 2 and num > 1 and '번' in option[1]):
@@ -138,7 +142,7 @@ async def on_message(message):
                 else:
                     dsc_string = "수호자님, 딥스톤 무덤은 4명의 보스가 대기하고 있는 거 아시죠? 아니면 명령어를 잘못 입력한 거 같은데... 확인해주세요."
                 await message.channel.send(dsc_string)
-
+        
                 
         # elif option[0] == '오늘': #오늘
         #     if len(option) < 1:
