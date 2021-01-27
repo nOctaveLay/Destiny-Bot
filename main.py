@@ -71,6 +71,10 @@ async def on_message(message):
             choose_one = random.choice(['네','아니오'])
             await message.channel.send(choose_one)
 
+        elif option[0] == '가위바위보' or option[0] == "감맘보":
+            choose_one = random.choice(['가위','바위','보'])
+            await message.channel.send(choose_one)
+
         elif option[0] == '랜덤':
             #랜덤
             if len(option) == 1 or (len(option) == 2 and num > 1 and '번' in option[1]):
