@@ -67,7 +67,7 @@ async def on_message(message):
         elif option[0] == '안녕':
             await message.channel.send(f"{message.author} 수호자님, 안녕하세요?")
 
-        elif option[0] == '소라고동':
+        elif option[0] == '소라고동' or option[0] == '소라고둥':
             choose_one = random.choice(['네','아니오'])
             await message.channel.send(choose_one)
 
