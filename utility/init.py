@@ -73,12 +73,14 @@ def init_raid():
     return (raid_list,raid_text_dict)
 
 def init_num(option):
-    num = 1
-    if '번' in option:
-        num_list = option.split("번")
-        if num_list[0].isdigit():
-            if int(num_list[0]) > 1:
-                num = int(num_list[0])
-            else: 
-                num = -1
+
+    if '번' in option or '회' in option:
+        num = option[:-1]
+    else:
+        num = option
+    if num.isdigit():
+        if int(num) > 1:
+            num = int(num)
+        else: 
+            num = -1
     return num
