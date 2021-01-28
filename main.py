@@ -53,7 +53,7 @@ async def on_message(message):
         if num == -1 or num > 11:
             await message.channel.send(f"반복 횟수를 잘못 설정한 거 같아요, 수호자님. 어... 우선 1번만 돌릴게요")
             num = 1
-
+            
         if '자발라' in option:
             await message.channel.send("여기서 그 파란 빡빡이를 왜 찾으시는 거죠?")
 
