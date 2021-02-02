@@ -14,12 +14,8 @@ def update():
     today_datetime = datetime.today()
     update_time_iso = datetime.isoformat(today_datetime,timespec ='seconds')
     update_time_iso = update_time_iso[update_time_iso.index('T')+1:]
-    result_data.append({"시간":update_time_iso})
     time_delta = timedelta(days = 8)
     today_delta = today - time_delta
-
-    # now_time = time.gmtime()
-    # now_time.tm_hour = now_time.tm_hour += 9
 
     for data in issue_data:
         end_time = data['closed_at']
@@ -30,6 +26,7 @@ def update():
             string_format = {"날짜": dict_date, "제목": dict_title}
             result_data.append(string_format)
     result_data = sorted(result_data,key = lambda issue: issue['날짜'])
+    result_data.append({"시간":update_time_iso})
     return result_data
 
 def issue_read():
@@ -46,7 +43,6 @@ def issue_read():
             text_time = text_time.split(":")
             text_time = text_time[0]
         else: text_time = today_datetime.hour
-
         issue_date = date.fromisoformat(issue_convert_json[1]['날짜'])
         if issue_date < today or text_time < today_datetime.hour-1:
             issue_data = update()
@@ -60,4 +56,3 @@ def issue_save(save_data):
     json_list = json.dumps(save_data)
     with open(file_name,'w',encoding = 'utf-8') as f:
         f.write(json_list)
-

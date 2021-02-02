@@ -14,6 +14,7 @@ from raid.dsc import *
 from raid.gos import *
 from raid.lw import *
 from utility.utility import *
+from utility.issue import *
 
 client = discord.Client()
 user = discord.User
@@ -224,7 +225,7 @@ async def on_message(message):
         elif option[0] == '업데이트':
             issue_list = issue_read()
             await message.channel.send("수호자님, 1주일 동안 해결된 문제에 대해서 말씀드릴게요. 음...")
-            issue_list = issue_list[1:]
+            issue_list = issue_list[:-1]
             date = '1990-11-11'    
             issue_list = sorted(issue_list,key = lambda issue: issue['날짜'])
             for index,issue in enumerate(issue_list):
@@ -233,7 +234,7 @@ async def on_message(message):
                 if date != issue['날짜']:
                     await message.channel.send(f"{issue_date}, 이 날에는 이런 문제들이 해결되었어요.")
                     date = issue_date
-                await message.channel.send(f"{index}, {title}")
+                await message.channel.send(f"{index+1}: {title}")
         else:
             await message.channel.send(error_message)
 
