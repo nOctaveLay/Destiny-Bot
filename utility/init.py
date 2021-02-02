@@ -75,7 +75,7 @@ def init_raid():
 def init_num(option):
     num = 1
     if '번' in option or '회' in option:
-        temp_num = option[-1]
+        temp_num = option[:-1]
     else:
         temp_num = option
     if temp_num.isdigit():
