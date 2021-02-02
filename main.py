@@ -53,23 +53,13 @@ async def on_message(message):
         if num == -1 or num > 11:
             await message.channel.send(f"반복 횟수를 잘못 설정한 거 같아요, 수호자님. 어... 우선 1번만 돌릴게요")
             num = 1
-            
+
+        #이스터 에그    
         if '자발라' in option:
             await message.channel.send("여기서 그 파란 빡빡이를 왜 찾으시는 거죠?")
 
         elif len(option) == 0: #사기라만 쳤을 경우
             await message.channel.send("왜 그러시죠? 수호자님?")
-
-        elif option[0] == '사용법' or option[0] == 'help' or option[0] == '도움':
-            use_string = usage()
-            await message.channel.send(use_string)
-
-        elif option[0] == '안녕':
-            await message.channel.send(f"{message.author} 수호자님, 안녕하세요?")
-
-        elif option[0] == '소라고동' or option[0] == '소라고둥':
-            choose_one = random.choice(['그럼요. 물론이죠.','아니요, 그럴리가요.','음... 잘 모르겠네요. 오시리스에게 한 번 물어보죠'])
-            await message.channel.send(choose_one)
 
         elif option[0] == '가위바위보' or option[0] == "감맘보":
             choose_one = random.choice(['가위','바위','보'])
@@ -146,6 +136,21 @@ async def on_message(message):
                 else:
                     dsc_string = "수호자님, 딥스톤 무덤은 4명의 보스가 대기하고 있는 거 아시죠? 아니면 명령어를 잘못 입력한 거 같은데... 확인해주세요."
                 await message.channel.send(dsc_string)
+                
+        elif option[0] == '사용법' or option[0] == 'help' or option[0] == '도움':
+            use_string = usage()
+            await message.channel.send(use_string)
+
+        elif option[0] == '소라고동' or option[0] == '소라고둥':
+            choose_one = random.choice(['그럼요. 물론이죠.','아니요.','음... 잘 모르겠네요. 오시리스에게 한 번 물어보죠...'])
+            await message.channel.send(choose_one)
+
+        #이스터 에그
+        elif option[0] == '자폭해':
+            await message.channel.send(f"{message.author.name} 수호자님? 어떻게... 저를 죽이려 하실 수가 있죠?")
+
+        elif option[0] == '안녕':
+            await message.channel.send(f"{message.author.name} 수호자님, 안녕하세요?")    
         
                 
         # elif option[0] == '오늘': #오늘
