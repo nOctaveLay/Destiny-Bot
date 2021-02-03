@@ -8,7 +8,7 @@ def change_activity_text_dict(act_num_dict):
     today_time = datetime.today().weekday()
     for x in act_num_dict:
         num = act_num_dict[x]
-        num_text = f'**{num}번** ' if num > 1 else ''  
+        num_text = f'**{num}번** ' if num > 0 else ''  
         if num > 0:
             if x == activity_list[0]:
                 new_text_dict.append(f'수호자, 파란 빡빡이가 선봉대가 해야 하는 **공격전**을 {num_text}하라고 부르고 있어요.')
