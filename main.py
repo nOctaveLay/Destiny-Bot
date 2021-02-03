@@ -50,11 +50,13 @@ async def on_message(message):
     if message.content.startswith(call_string):
         option = message.content.split(" ")
         option = option[1:]
+        
         if len(option) == 0:
             await message.channel.send("왜 그러시죠? 수호자님?")
             num = 0
         else:
             num = init_num(option[-1])
+
         if num == -1 or num > 10:
             await message.channel.send(f"반복 횟수를 너무 많이 설정한 거 같아요, 수호자님. 어... 우선 1번만 돌릴게요")
             num = 1
@@ -62,9 +64,6 @@ async def on_message(message):
         #이스터 에그    
         if '자발라' in option:
             await message.channel.send("여기서 그 파란 빡빡이를 왜 찾으시는 거죠?")
-
-        elif len(option) == 0: #사기라만 쳤을 경우
-            await message.channel.send("왜 그러시죠? 수호자님?")
 
         elif option[0] == '가위바위보' or option[0] == "감맘보":
             choose_one = random.choice(['가위','바위','보'])
