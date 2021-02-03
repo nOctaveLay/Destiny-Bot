@@ -65,7 +65,7 @@ async def on_message(message):
             await message.channel.send("여기서 그 파란 빡빡이를 왜 찾으시는 거죠?")
 
         elif len(option) == 0:
-            await message.channel.send(f"왜 그러시죠? {message.author.name}수호자님?")
+            await message.channel.send(f"왜 그러시죠? {message.author.name} 수호자님?")
 
         elif option[0] == '가위바위보' or option[0] == "감맘보":
             choose_one = random.choice(['가위','바위','보'])
