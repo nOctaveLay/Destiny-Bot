@@ -42,7 +42,7 @@ async def on_message(message):
     raid_list,raid_text_dict = init_raid()
     raid_summary_list = ['마소','구정','딥스톤']
 
-    error_message = '수호자님, 그런 명령어는 아직 들어와있지 않아요.'
+    error_message = '수호자님, 제가 알아들을 수 있는 말로 부탁드릴게요. **사기라 사용법**을 쓰면 제가 어떤 말을 알아듣는지 알 수 있을 거에요.'
 
     if message.author.bot:
         return
@@ -242,8 +242,7 @@ async def on_message(message):
                     date = issue_date
                 await message.channel.send(f"{index+1}: {title}")
         else:
-            pass
-            # await message.channel.send(error_message)
+            await message.channel.send(error_message)
 
 
 def additive_option(func_name,option = 'normal'):
