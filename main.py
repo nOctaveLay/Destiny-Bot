@@ -240,8 +240,11 @@ async def on_message(message):
 
         elif option[0] == '업데이트':
             await message.channel.send(show_issue())
+        elif option[0] == '챌린지' or option[0] == '챌':
+            await message.channel.send(show_challenge())
         else:
             await message.channel.send(error_message)
+
 
 def additive_option(func_name,option = 'normal'):
     if option == "easy" or option == "라이트":

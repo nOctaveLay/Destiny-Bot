@@ -1,4 +1,4 @@
-__all__ = ['init_raid','print_no_named']
+__all__ = ['init_raid','print_no_named','show_challenge']
 from collections import defaultdict
 import json
 import os
@@ -12,14 +12,17 @@ def print_no_named():
 
 def show_challenge():
     file_name = "./data/challenge.txt"
+    raid_keys = init_raid()
     if os.path.isfile(file_name):
         with open(file_name,'r',encoding = 'utf-8') as f:
             raid_challenge = f.read()
         raid_challenge = json.loads(raid_challenge)
     else:
-        raid_keys = init_raid()
         raid_challenge = dict.fromkeys(raid_keys, 1)
         with open(file_name,'w',encoding = 'utf-8') as f:
             dumps = json.dumps(raid_challenge)
             f.write(dumps)
-    return raid_challenge
+    result_string = '\n이번 레이드의 챌린지를 보여드릴게요.\n'
+    for key in raid_keys:
+        result_string += f'{key}: {raid_challenge[key]}네임드 \n'
+    return result_string
