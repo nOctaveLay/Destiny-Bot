@@ -1,5 +1,4 @@
 import random
-
 __all__ = ['print_lw_named','print_lw_sec_named','print_lw_third_named','print_lw_forth_named']
 
 def print_lw_sec_named():
