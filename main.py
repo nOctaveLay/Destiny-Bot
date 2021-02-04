@@ -242,7 +242,8 @@ async def on_message(message):
                     date = issue_date
                 await message.channel.send(f"{index+1}: {title}")
         else:
-            await message.channel.send(error_message)
+            pass
+            # await message.channel.send(error_message)
 
 
 def additive_option(func_name,option = 'normal'):
