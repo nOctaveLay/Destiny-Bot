@@ -1,6 +1,6 @@
 from datetime import date, datetime
 
-__all__ = ['change_activity_text_dict','change_raid_text_dict','init_raid','init_activity','init_num']
+__all__ = ['change_activity_text_dict','change_raid_text_dict','init_activity','init_num']
 
 def change_activity_text_dict(act_num_dict):
     activity_list = ['공격전','황혼전 시련','시련의 장','갬빗','레이드','예언','선각자']
@@ -55,10 +55,6 @@ def init_activity():
     if today_time >4 or today_time < 2:
         activity_list.append('오시리스의 시련')
     return activity_list
-
-def init_raid():
-    raid_list = ['마지막 소원', '구원의 정원','딥스톤 무덤']
-    return raid_list
 
 def init_num(option):
     num = 1
