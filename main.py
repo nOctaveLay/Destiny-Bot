@@ -24,7 +24,7 @@ user = discord.User
 config = ConfigParser()
 config.read('./env/config.ini')
 token = config['Default']['token']
-
+ignore_user_set = set()
 
 @client.event
 async def on_ready():
@@ -64,13 +64,24 @@ async def on_message(message):
             await message.channel.send(f"하지만 반복 횟수를 너무 많이 설정한 거 같아요. 그래서 한 번만 한다고 생각하고 말해드릴게요.")
             num = 1
 
-        #이스터 에그    
-        if '자발라' in option:
-            await message.channel.send("여기서 그 파란 빡빡이를 왜 찾으시는 거죠?")
-            await message.channel.send("자발라를 부른 이상, 아무것도 실행하지 않을래요.")
+        #이스터 에그
+        if message.author.id in ignore_user_set:
+            if len(option) > 0 and option[0] in ['미안', '미안해', '안그럴게']:
+                ignore_user_set.remove(message.author.id)
+                await message.channel.send("이번 한 번만 봐드릴게요. 또 그러기만 해 봐요.")
+            else:
+                await message.channel.send("절 죽이려 한 것에 대해 사과하기 전까지는 아무것도 실행하지 않을래요.")
 
         elif len(option) == 0:
             await message.channel.send(f"왜 그러시죠? {message.author.name} 수호자님?")
+
+        elif option[0] == '자폭해':
+            ignore_user_set.add(message.author.id)
+            await message.channel.send(f"{message.author.name} 수호자님? 어떻게... 저를 죽이려 하실 수가 있죠?")
+
+        elif '자발라' in option:
+            await message.channel.send("여기서 그 파란 빡빡이를 왜 찾으시는 거죠?")
+            await message.channel.send("자발라를 찾은 이상, 아무것도 실행하지 않을래요.")
 
         elif option[0] == '가위바위보' or option[0] == "감맘보":
             choose_one = random.choice(['가위','바위','보'])
@@ -132,7 +143,6 @@ async def on_message(message):
                 else:
                     gos_string = "수호자님, 구원의 정원은 보스가 총 4명 있는 거 아시죠? 아니면 명령어를 잘못 입력한 거 같은데... 확인해주세요."
                 await message.channel.send(gos_string)
-            
             else:
                 if len(option) == 1:
                     dsc_string = print_dsc_named()
@@ -147,7 +157,7 @@ async def on_message(message):
                 else:
                     dsc_string = "수호자님, 딥스톤 무덤은 4명의 보스가 대기하고 있는 거 아시죠? 아니면 명령어를 잘못 입력한 거 같은데... 확인해주세요."
                 await message.channel.send(dsc_string)
-                
+
         elif option[0] == '사용법' or option[0] == 'help' or option[0] == '도움':
             use_string = usage()
             await message.channel.send(use_string)
@@ -156,15 +166,9 @@ async def on_message(message):
             choose_one = random.choice(['그럼요. 물론이죠.','아니요.','음... 잘 모르겠네요. 오시리스에게 한 번 물어보죠...'])
             await message.channel.send(choose_one)
 
-        #이스터 에그
-        elif option[0] == '자폭해':
-            await message.channel.send(f"{message.author.name} 수호자님? 어떻게... 저를 죽이려 하실 수가 있죠?")
-        
         elif option[0] == '안녕':
-            await message.channel.send(f"{message.author.name} 수호자님, 안녕하세요?")    
-        
+            await message.channel.send(f"{message.author.name} 수호자님, 안녕하세요?")
 
-                
         # elif option[0] == '오늘': #오늘
         #     if len(option) < 1:
         #         await message.channel.send("봇을 사용할 수 없습니다, 명령어가 없는게 아닐지?")
@@ -174,8 +178,8 @@ async def on_message(message):
         #         today_count = additive_option(count_activity)
         #         today_all_dict = multiple_activity(random_activity,today_count)
         #         for printer_ in print_random_dict(today_all_dict):
-        #             await message.channel.send(printer_) 
-            
+        #             await message.channel.send(printer_)
+
         #     elif option[1] == '하드':
         #         mode = random.randint(0,1)
         #         if mode == 0:
@@ -202,7 +206,7 @@ async def on_message(message):
 
         #     elif option[1] == "레이드":
         #         if len(option) == 3:
-        #             raid_num = additive_option(count_activity,option[2]) 
+        #             raid_num = additive_option(count_activity,option[2])
         #         else :
         #             raid_num = count_activity()
         #         string = string_format('레이드',raid_num)
@@ -224,7 +228,7 @@ async def on_message(message):
         #     else:
         #         await message.channel.send("어... 수호자님... 뭐라고요...?")
         # #활동
-        # elif option[0] == command_list[4]:                
+        # elif option[0] == command_list[4]:
         #     string = random_activity()
         #     string = print_activity(string)
         #     await message.channel.send(string)
@@ -233,7 +237,7 @@ async def on_message(message):
         #     string = random_raid()
         #     string = print_raid(string)
         #     await message.channel.send(string)
-        
+
         elif option[0] == '업데이트':
             await message.channel.send(show_issue())
         else:
