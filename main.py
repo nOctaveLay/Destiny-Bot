@@ -7,8 +7,10 @@ import os
 import random
 import re
 
+from collections import defaultdict
 import discord
-from utility.issue import issue_read
+import atexit
+from utility.issue import show_issue
 from utility.init import *
 from raid.dsc import *
 from raid.gos import *
@@ -22,6 +24,7 @@ user = discord.User
 config = ConfigParser()
 config.read('./config.ini')
 token = config['Default']['token']
+
 
 @client.event
 async def on_ready():
@@ -38,8 +41,8 @@ async def on_message(message):
     #config 파일로 관리하는 방법 없을까 리스트도 너무 지저분한데...
     call_string = '사기라'
 
-    activity_list,activity_text_dict = init_activity()
-    raid_list,raid_text_dict = init_raid()
+    activity_list = init_activity()
+    raid_list = init_raid()
     raid_summary_list = ['마소','구정','딥스톤']
 
     error_message = '수호자님, 제가 알아들을 수 있는 말로 부탁드릴게요. **사기라 사용법**을 쓰면 제가 어떤 말을 알아듣는지 알 수 있을 거에요.'
@@ -57,12 +60,14 @@ async def on_message(message):
             num = init_num(option[-1])
 
         if num == -1 or num > 10:
-            await message.channel.send(f"반복 횟수를 너무 많이 설정한 거 같아요, 수호자님. 어... 우선 1번만 돌릴게요")
+            await message.channel.send(f"반복은 메세지가 너무 많아지는 것을 방지하기 위해서 10번 이하로만 돌리도록 하고 있어요.")
+            await message.channel.send(f"하지만 반복 횟수를 너무 많이 설정한 거 같아요. 그래서 한 번만 한다고 생각하고 말해드릴게요.")
             num = 1
 
         #이스터 에그    
         if '자발라' in option:
             await message.channel.send("여기서 그 파란 빡빡이를 왜 찾으시는 거죠?")
+            await message.channel.send("자발라를 찾은 이상, 아무것도 실행하지 않을래요.")
 
         elif len(option) == 0:
             await message.channel.send(f"왜 그러시죠? {message.author.name} 수호자님?")
@@ -74,7 +79,7 @@ async def on_message(message):
         elif option[0] == '랜덤':
             #랜덤
             if len(option) == 1 or (len(option) == 2 and num > 0 and '번' in option[1]):
-                activity_num_dict = {key:0 for key in activity_list}
+                activity_num_dict = defaultdict(lambda:0)
                 for _ in range(num):
                     choosen_activity = choosen(activity_list)
                     activity_num_dict[choosen_activity] += 1
@@ -84,7 +89,7 @@ async def on_message(message):
 
             #랜덤 레이드
             elif option[1] == '레이드':
-                raid_num_dict = {key:0 for key in raid_list}
+                raid_num_dict = defaultdict(lambda:0)
                 for _ in range(num):
                     choosen_raid = choosen(raid_list)
                     raid_num_dict[choosen_raid] += 1
@@ -154,10 +159,11 @@ async def on_message(message):
         #이스터 에그
         elif option[0] == '자폭해':
             await message.channel.send(f"{message.author.name} 수호자님? 어떻게... 저를 죽이려 하실 수가 있죠?")
-
+        
         elif option[0] == '안녕':
             await message.channel.send(f"{message.author.name} 수호자님, 안녕하세요?")    
         
+
                 
         # elif option[0] == '오늘': #오늘
         #     if len(option) < 1:
@@ -229,22 +235,22 @@ async def on_message(message):
         #     await message.channel.send(string)
         
         elif option[0] == '업데이트':
-            issue_list = issue_read()
-            await message.channel.send("수호자님, 1주일 동안 해결된 문제에 대해서 말씀드릴게요. 음...")
-            issue_list = issue_list[:-1]
-            date = '1990-11-11'    
-            issue_list = sorted(issue_list,key = lambda issue: issue['날짜'])
-            for index,issue in enumerate(issue_list):
-                title = issue['제목']
-                issue_date = issue['날짜']
-                if date != issue['날짜']:
-                    await message.channel.send(f"{issue_date}, 이 날에는 이런 문제들이 해결되었어요.")
-                    date = issue_date
-                await message.channel.send(f"{index+1}: {title}")
+            await message.channel.send(show_issue())
+            # issue_list = issue_read()
+            # await message.channel.send("수호자님, 1주일 동안 해결된 문제에 대해서 말씀드릴게요. 음...")
+            # issue_list = issue_list[:-1]
+            # date = '1990-11-11'    
+            # issue_list = sorted(issue_list,key = lambda issue: issue['날짜'])
+            # for index,issue in enumerate(issue_list):
+            #     title = issue['제목']
+            #     issue_date = issue['날짜']
+            #     if date != issue['날짜']:
+            #         await message.channel.send(f"{issue_date}, 이 날에는 이런 문제들이 해결되었어요.")
+            #         date = issue_date
+            #     await message.channel.send(f"{index+1}: {title}")
         else:
             await message.channel.send(error_message)
-
-
+            
 def additive_option(func_name,option = 'normal'):
     if option == "easy" or option == "라이트":
         result_num = func_name(option = 'easy')
@@ -286,7 +292,6 @@ def multiple_activity(func,num,option = 'normal'):
         else:
             activity_dict[find_activity] += 1
     return activity_dict
-
 
 
 client.run(token)
