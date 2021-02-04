@@ -67,7 +67,7 @@ async def on_message(message):
         #이스터 에그    
         if '자발라' in option:
             await message.channel.send("여기서 그 파란 빡빡이를 왜 찾으시는 거죠?")
-            await message.channel.send("자발라를 찾은 이상, 아무것도 실행하지 않을래요.")
+            await message.channel.send("자발라를 부른 이상, 아무것도 실행하지 않을래요.")
 
         elif len(option) == 0:
             await message.channel.send(f"왜 그러시죠? {message.author.name} 수호자님?")
@@ -250,7 +250,7 @@ async def on_message(message):
             #     await message.channel.send(f"{index+1}: {title}")
         else:
             await message.channel.send(error_message)
-            
+
 def additive_option(func_name,option = 'normal'):
     if option == "easy" or option == "라이트":
         result_num = func_name(option = 'easy')
