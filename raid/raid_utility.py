@@ -26,13 +26,24 @@ def show_challenge():
             raid_challenge['date'] = date.isoformat(datetime.today())
             raid_challenge['challenge'] = 1
             raid_list.append(raid_challenge)
-        with open(file_name,'w',encoding = 'utf-8') as f:
-            dumps = json.dumps(raid_list)
-            f.write(dumps)
+        save_list(file_name,raid_list)
     result_string = '\n이번 레이드의 챌린지를 보여드릴게요.\n'
-    for raid_challenge in raid_list:
+    for index,raid_challenge in enumerate(raid_list):
+        raid_challenge = update_challenge(raid_challenge)
         result_string += f'{raid_challenge["title"]}: {raid_challenge["challenge"]}네임드 \n'
+        raid_list[index] = raid_challenge
+    save_list(file_name,raid_list)
     return result_string
 
-def week_update(date):
+def update_challenge(raid_challenge):
     today_date = datetime.today()
+    week = (today_date-datetime.fromisoformat(raid_challenge['date'])).days // 7
+    if raid_challenge['title'] == '마지막 소원': num = 5
+    else: num = 4
+    raid_challenge["challenge"] = (int(raid_challenge["challenge"])-1+week)%num+1
+    return raid_challenge
+
+def save_list(file_name,save_list):
+    with open(file_name,'w',encoding = 'utf-8') as f:
+        dumps = json.dumps(save_list)
+        f.write(dumps)
