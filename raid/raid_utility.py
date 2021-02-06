@@ -1,5 +1,6 @@
 __all__ = ['init_raid','print_no_named','show_challenge']
 from collections import defaultdict
+from datetime import datetime, date
 import json
 import os
 def init_raid():
@@ -13,16 +14,25 @@ def print_no_named():
 def show_challenge():
     file_name = "./data/challenge.txt"
     raid_keys = init_raid()
+    raid_list = list()
     if os.path.isfile(file_name):
         with open(file_name,'r',encoding = 'utf-8') as f:
-            raid_challenge = f.read()
-        raid_challenge = json.loads(raid_challenge)
+            raid_list = f.read()
+        raid_list = json.loads(raid_list)
     else:
-        raid_challenge = dict.fromkeys(raid_keys, 1)
+        for key in raid_keys:
+            raid_challenge = dict()
+            raid_challenge['title'] = key
+            raid_challenge['date'] = date.isoformat(datetime.today())
+            raid_challenge['challenge'] = 1
+            raid_list.append(raid_challenge)
         with open(file_name,'w',encoding = 'utf-8') as f:
-            dumps = json.dumps(raid_challenge)
+            dumps = json.dumps(raid_list)
             f.write(dumps)
     result_string = '\n이번 레이드의 챌린지를 보여드릴게요.\n'
-    for key in raid_keys:
-        result_string += f'{key}: {raid_challenge[key]}네임드 \n'
+    for raid_challenge in raid_list:
+        result_string += f'{raid_challenge["title"]}: {raid_challenge["challenge"]}네임드 \n'
     return result_string
+
+def week_update(date):
+    today_date = datetime.today()
