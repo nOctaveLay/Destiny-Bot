@@ -75,6 +75,9 @@ async def on_message(message):
         elif len(option) == 0:
             await message.channel.send(f"왜 그러시죠? {message.author.name} 수호자님?")
 
+        elif option[0] in ['미안', '미안해', '안그럴게']:
+            await message.channel.send(f"{message.author.name} 수호자님? 왜 미안해 하시는 건가요? 미안해 하실 필요 없어요, 괜찮아요.")
+
         elif option[0] == '자폭해':
             ignore_user_set.add(message.author.id)
             await message.channel.send(f"{message.author.name} 수호자님? 어떻게... 저를 죽이려 하실 수가 있죠?")
