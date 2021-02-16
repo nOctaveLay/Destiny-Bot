@@ -10,11 +10,6 @@ def print_dict(choosen_string,choosen_dict):
     string = choosen_dict[choosen_string]
     return string
 
-
-# def repeat_func(function,num):
-#     for _ in range(num):
-#         function()
-
 def usage(file_name = './data/use.md'):
     string = '사용법에 대해서 설명하겠습니다.\n'
     with open(file_name,'r',encoding = 'utf-8') as f:
