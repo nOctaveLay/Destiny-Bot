@@ -41,7 +41,6 @@ def update_challenge(raid_challenge):
     diff_days = (today_date - written_date).days
     week = diff_days // 7
     last_days = diff_days % 7
-    print(diff_days,week,last_days)
     written_date = written_date + timedelta(week*7)
     for for_day in range(last_days+1):
         check_date = written_date + timedelta(days=for_day)
@@ -57,5 +56,3 @@ def save_list_into_json(file_name,save_list):
     with open(file_name,'w',encoding = 'utf-8') as f:
         dumps = json.dumps(save_list)
         f.write(dumps)
-
-print(update_challenge({'title': '마지막 소원', 'date': '2021-02-04', 'challenge': 1}))
