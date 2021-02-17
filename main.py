@@ -176,7 +176,7 @@ async def on_message(message):
         elif option[0] == "주사위":
             if len(option) > 1:
                 if option[1].isdigit():
-                    if int(option[1]) < 21 and int(option[1]) > 3:
+                    if int(option[1]) < 21 and int(option[1]) > 1:
                         dice_num = roll_dice(int(option[1]))
                     else:
                         dice_num = 0
@@ -185,7 +185,7 @@ async def on_message(message):
             else:
                 dice_num = roll_dice()
             if dice_num == 0:
-                await message.channel.send(f"주사위의 눈금은 4이상, 20이하이어야 합니다.")
+                await message.channel.send(f"주사위의 눈금은 2이상, 20이하이어야 합니다.")
             else:
                 await message.channel.send(f"{dice_num} 나왔습니다.")
 
