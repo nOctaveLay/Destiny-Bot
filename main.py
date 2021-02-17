@@ -12,6 +12,7 @@ import discord
 import atexit
 from utility.issue import show_issue
 from utility.init import *
+from utility.roll import roll_dice
 from raid.dsc import *
 from raid.gos import *
 from raid.lw import *
@@ -59,7 +60,7 @@ async def on_message(message):
         else:
             num = init_num(option[-1])
 
-        if num == -1 or num > 10:
+        if (num == -1 or num > 10) and option[0] != '주사위':
             await message.channel.send(f"반복은 메세지가 너무 많아지는 것을 방지하기 위해서 10번 이하로만 돌리도록 하고 있어요.")
             await message.channel.send(f"하지만 반복 횟수를 너무 많이 설정한 거 같아요. 그래서 한 번만 한다고 생각하고 말해드릴게요.")
             num = 1
@@ -171,6 +172,22 @@ async def on_message(message):
 
         elif option[0] == '안녕':
             await message.channel.send(f"{message.author.name} 수호자님, 안녕하세요?")
+
+        elif option[0] == "주사위":
+            if len(option) > 1:
+                if option[1].isdigit():
+                    if int(option[1]) < 21 and int(option[1]) > 1:
+                        dice_num = roll_dice(int(option[1]))
+                    else:
+                        dice_num = 0
+                else:
+                    dice_num = 0
+            else:
+                dice_num = roll_dice()
+            if dice_num == 0:
+                await message.channel.send(f"주사위의 눈금은 2이상, 20이하이어야 합니다.")
+            else:
+                await message.channel.send(f"{dice_num} 나왔습니다.")
 
         elif option[0] == '업데이트':
             await message.channel.send(show_issue())

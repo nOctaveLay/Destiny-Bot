@@ -66,3 +66,9 @@
         #     string = random_raid()
         #     string = print_raid(string)
         #     await message.channel.send(string)
+
+
+
+# def repeat_func(function,num):
+#     for _ in range(num):
+#         function()

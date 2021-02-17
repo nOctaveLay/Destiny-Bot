@@ -1,6 +1,6 @@
 __all__ = ['init_raid','print_no_named','show_challenge']
 from collections import defaultdict
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 import json
 import os
 def init_raid():
@@ -36,11 +36,20 @@ def show_challenge():
     return result_string
 
 def update_challenge(raid_challenge):
-    today_date = datetime.today()
-    week = (today_date-datetime.fromisoformat(raid_challenge['date'])).days // 7
+    today_date = date.today()
+    written_date = date.fromisoformat(raid_challenge['date'])
+    diff_days = (today_date - written_date).days
+    week = diff_days // 7
+    last_days = diff_days % 7
+    written_date = written_date + timedelta(week*7)
+    for for_day in range(last_days+1):
+        check_date = written_date + timedelta(days=for_day)
+        if check_date.weekday() == 1:
+            week +=1
     if raid_challenge['title'] == '마지막 소원': num = 5
     else: num = 4
     raid_challenge["challenge"] = (int(raid_challenge["challenge"])-1+week)%num+1
+    raid_challenge["date"] = date.isoformat(today_date)
     return raid_challenge
 
 def save_list_into_json(file_name,save_list):
