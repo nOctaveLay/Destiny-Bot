@@ -1,6 +1,5 @@
-
 *.pyc
 *.ini
 test.py
 test.py
-data/challenge.txt
+.vscode/launch.json
