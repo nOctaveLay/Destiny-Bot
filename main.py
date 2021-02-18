@@ -193,6 +193,9 @@ async def on_message(message):
             await message.channel.send(show_issue())
         elif option[0] == '챌린지' or option[0] == '챌':
             await message.channel.send(show_challenge())
+
+        elif option[0] == '잘자':
+            await message.channel.send(f"{message.author.name} 수호자님도요. 안녕히 주무세요.")
         else:
             await message.channel.send(error_message)
 
