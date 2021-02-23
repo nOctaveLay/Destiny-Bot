@@ -1,5 +1,5 @@
 {
-  "dataName": "승천 차원",
+  "name": "승천 차원",
   "challenge": [
     {
       "name": "몰수 방어",
