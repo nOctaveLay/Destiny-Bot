@@ -1,0 +1,12 @@
+{
+  "발화": "태양",
+  "챌린지": [
+    {"title": "\ub9c8\uc9c0\ub9c9 \uc18c\uc6d0", "date": "2021-02-23", "challenge": 3}, 
+    {"title": "\uad6c\uc6d0\uc758 \uc815\uc6d0", "date": "2021-02-23", "challenge": 4}, 
+    {"title": "\ub525\uc2a4\ud1a4 \ubb34\ub364", "date": "2021-02-23", "challenge": 2}
+  ],
+  "일식 지역": "Asterion Abyss",
+  "엑소 도전": "Agility",
+  "제국 사냥": "전사",
+  "승천": "기록 파괴"
+}
