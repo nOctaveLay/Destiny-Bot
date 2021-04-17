@@ -1,1 +1,1 @@
-[{"title": "\ub9c8\uc9c0\ub9c9 \uc18c\uc6d0", "date": "2021-02-24", "challenge": 4}, {"title": "\uad6c\uc6d0\uc758 \uc815\uc6d0", "date": "2021-02-24", "challenge": 1}, {"title": "\ub525\uc2a4\ud1a4 \ubb34\ub364", "date": "2021-02-24", "challenge": 3}]
+[{"title": "\ub9c8\uc9c0\ub9c9 \uc18c\uc6d0", "date": "2021-02-24", "challenge": 3}, {"title": "\uad6c\uc6d0\uc758 \uc815\uc6d0", "date": "2021-02-24", "challenge": 2}, {"title": "\ub525\uc2a4\ud1a4 \ubb34\ub364", "date": "2021-02-24", "challenge": 4}]
